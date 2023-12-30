@@ -1,0 +1,15 @@
+<h1>Game #<%= @game.id%></h1>
+<br />
+<br />
+
+<div class="game-wrapper" data-controller="game">
+  <%= turbo_stream_from dom_id(@game) %>
+
+  <%= render @game %>
+</div>
+
+<div>
+  <%= turbo_stream_from dom_id(@player) %>
+
+  <%= render @player %>
+</div>
