@@ -1,3 +1,46 @@
-  <div id="<%= dom_id(player) %>">
-    <%= player.inspect %>
+<div id="<%= dom_id(player) %>" class="bg-white max-w-2xl shadow overflow-hidden sm:rounded-lg">
+  <div class="px-4 py-5 sm:px-6">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">
+          Player
+      </h3>
+      <p class="mt-1 max-w-2xl text-sm text-gray-500">
+          Detailed and informations about your frog.
+      </p>
   </div>
+    <div class="px-4 py-5 sm:px-6">
+      <dl>
+          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">
+                  Identity
+              </dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <%= player.identity %><br />
+              </dd>
+          </div>
+          <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">
+                  Alive?
+              </dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <%= player.alive? ? 'Yes' : 'No' %>
+              </dd>
+          </div>
+          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">
+                  Position X
+              </dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <%= player.position_horizontal %>
+              </dd>
+          </div>
+          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">
+                  Position Y
+              </dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <%= player.position_vertical %>
+              </dd>
+          </div>
+      </dl>
+  </div>
+</div>

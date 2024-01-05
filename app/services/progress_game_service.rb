@@ -1,6 +1,6 @@
 class ProgressGameService
   def self.call
-    game = Game.where(active: true).last
+    game = Game.where(running: true).last
     return false unless game
 
     next_action_id = game.last_action_id + 1

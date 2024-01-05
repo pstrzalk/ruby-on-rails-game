@@ -1,10 +1,10 @@
 namespace :game do
-  desc "Start a new active game"
+  desc "Start a new running game"
   task start: :environment do
     StartGameService.call
   end
 
-  desc "Progress the active game"
+  desc "Progress the running game"
   task run: :environment do
     puts 'Starting game'
     loop do

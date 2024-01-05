@@ -4,9 +4,11 @@ class CreateGames < ActiveRecord::Migration[7.1]
       t.references :time
       t.references :world
 
+      t.integer :train_position
+      t.bigint :winner
       t.bigint :last_action_id
 
-      t.boolean :active, default: false
+      t.boolean :running, default: false
 
       t.timestamps
     end

@@ -49,8 +49,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_28_213613) do
   create_table "games", force: :cascade do |t|
     t.bigint "time_id"
     t.bigint "world_id"
+    t.integer "train_position"
+    t.bigint "winner"
     t.bigint "last_action_id"
-    t.boolean "active", default: false
+    t.boolean "running", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["time_id"], name: "index_games_on_time_id"

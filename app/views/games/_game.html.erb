@@ -1,3 +1,38 @@
-<div class="game" id="<%= dom_id(game) %>">
-  <pre><%= GamePresenter.new(game:).call(for_player_identity: @player_identity) %></pre>
+<% presenter = GamePresenter.new(game:) %>
+<div class="game grid gap-0" style="grid-template-columns: repeat(40,minmax(0,1fr));" id="<%= dom_id(game) %>">
+  <% presenter.rows.each_with_index do |row, row_index| %>
+    <% row.each_with_index do |cell, cell_index| %>
+      <% if cell == Game::World::PATTERN_TNT %>
+        <%= image_tag("water_with_tnt.png", alt: "TNT on the water") %>
+
+      <% elsif cell == Game::World::PATTERN_RAILWAY %>
+        <% if presenter.train_position == cell_index %>
+          <% if presenter.players_positions.dig(row_index, cell_index) %>
+            <%= image_tag("rails_with_train_with_frog-green.png", alt: "Frog on the railway") %>
+          <% else %>
+            <%= image_tag("rails_with_train-green.png", alt: "Frog on the railway") %>
+          <% end %>
+        <% elsif presenter.players_positions.dig(row_index, cell_index) %>
+          <%= image_tag("rails_with_frog-green.png", alt: "Frog on the railway") %>
+        <% else %>
+          <%= image_tag("rails-green.png", alt: "Railsway") %>
+        <% end %>
+
+      <% elsif cell == Game::World::PATTERN_GRAVEL %>
+        <% if presenter.players_positions.dig(row_index, cell_index) %>
+          <%= image_tag("gravel_with_frog.png", alt: "Gravel with frog") %>
+        <% else %>
+          <%= image_tag("gravel.png", alt: "Gravel") %>
+        <% end %>
+
+      <% else %>
+        <% if presenter.players_positions.dig(row_index, cell_index) %>
+          <%= image_tag("water_with_frog.png", alt: "Frog on the water") %>
+        <% else %>
+          <div style="background-color: #357cea;"></div>
+        <% end %>
+
+      <% end %>
+    <% end %>
+  <% end %>
 </div>

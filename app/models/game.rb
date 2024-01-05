@@ -21,6 +21,8 @@ class Game < ApplicationRecord
   MOVE_BACK = 'b'.freeze
   MOVE_DIRECTIONS = Set.new([MOVE_LEFT, MOVE_RIGHT, MOVE_FORWARD, MOVE_BACK]).freeze
 
+  TRAIN_SPEED = 1000
+
   # hammer?
 
   # Improper design
@@ -39,13 +41,14 @@ class Game < ApplicationRecord
   end
 
   def progress(actions: [])
-    return false unless active
+    return false unless running
 
     self.last_action_id = actions.last.id if actions.any?
     moves = moves_from_actions(actions)
 
     progress_world
     progress_players(moves)
+    progress_train
     progress_time
 
     changed? || world.changed? || players.any?(&:changed?)
@@ -53,29 +56,48 @@ class Game < ApplicationRecord
 
   protected
 
+  def game_over(won_by: nil)
+    self.running = false
+    self.winner = won_by
+  end
+
+  def progress_train
+    return unless (time.current % TRAIN_SPEED).zero?
+
+    if train_position == Game::World::WIDTH
+      game_over
+    else
+      winner = players.find do |player|
+        player.position_vertical == World::RAILWAY_LEVEL && player.position_horizontal == train_position
+      end
+
+      if winner
+        game_over(won_by: winner.id)
+      else
+        self.train_position += 1
+      end
+    end
+  end
+
   def progress_time
-    Rails.logger.debug('-- progressing time')
     time.progress
     time.save
   end
 
   def progress_world
-    Rails.logger.debug('-- progressing world')
     world.progress(time.current)
   end
 
   def progress_players(moves)
-    Rails.logger.debug('-- progressing players')
-
     players.each do |player|
       while player.alive? && moves[player.identity].present?
         move = moves[player.identity].pop
 
         if move == MOVE_LEFT && player.position_horizontal.positive?
           player.move_left
-        elsif move == MOVE_RIGHT && player.position_horizontal < Game::World::WIDTH
+        elsif move == MOVE_RIGHT && player.position_horizontal < Game::World::WIDTH - 1
           player.move_right
-        elsif move == MOVE_FORWARD && player.position_vertical < Game::World::MAX_LEVEL
+        elsif move == MOVE_FORWARD && player.position_vertical < Game::World::RAILWAY_LEVEL
           player.move_forward
         elsif move == MOVE_BACK && player.position_vertical.positive?
           player.move_back

@@ -1,15 +1,17 @@
 <h1>Game #<%= @game.id%></h1>
-<br />
+<h2><%= @game.running? ? 'Running' : 'Finished' %>
 <br />
 
-<div class="game-wrapper" data-controller="game">
+<div class="game-wrapper border-black border-4 p-0" data-controller="game">
   <%= turbo_stream_from dom_id(@game) %>
 
   <%= render @game %>
 </div>
 
-<div>
-  <%= turbo_stream_from dom_id(@player) %>
+<% if @player %>
+  <div>
+    <%= turbo_stream_from dom_id(@player) %>
 
-  <%= render @player %>
-</div>
+    <%= render @player %>
+  </div>
+<% end %>

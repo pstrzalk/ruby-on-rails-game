@@ -1,5 +1,7 @@
 class Game::World < ApplicationRecord
-  PATTERN_DEADLY = 'x'.freeze
+  PATTERN_TNT = 'N'.freeze
+  PATTERN_GRAVEL = '-'.freeze
+  PATTERN_RAILWAY = '='.freeze
 
   WIDTH = 40
 
@@ -8,21 +10,21 @@ class Game::World < ApplicationRecord
   Railway = Class.new(Lane)
 
   LEVELS = [
-    Spawn.new(pattern: '........................................', speed: 0),
-    Lane.new(pattern: '..x.....................................', speed: 10),
-    Lane.new(pattern: '..x.....................................', speed: 20),
-    Lane.new(pattern: '..x.....................................', speed: 30),
-    Lane.new(pattern: '..x.....................................', speed: 40),
-    Lane.new(pattern: '..x.....................................', speed: 50),
-    Lane.new(pattern: '..x.....................................', speed: 60),
-    Lane.new(pattern: '..x.....................................', speed: 70),
-    Lane.new(pattern: '..x.....................................', speed: 80),
-    Railway.new(pattern: '========================================',speed: 0)
+    Spawn.new(pattern: '----------------------------------------', speed: 0),
+    Lane.new(pattern: '..NNNNNNNN..............NNNNNNNN........', speed: 3),
+    Lane.new(pattern: '..N.N.N.N........................N.N.N..', speed: 5),
+    Lane.new(pattern: '..NNNNNNNNN...............NNNNNNNNNNNN..', speed: 2),
+    Lane.new(pattern: 'NN......NN...................NN.....NN..', speed: 5),
+    Lane.new(pattern: '..NNNNNNNN...............NNNNNNNNNNNNN..', speed: 10),
+    Lane.new(pattern: '..........NNNN..........................', speed: 8),
+    Lane.new(pattern: '..N..............................N......', speed: 5),
+    Lane.new(pattern: 'NNN...NNN...............NNN.........NNNN', speed: 2),
+    Railway.new(pattern: '========================================', speed: 0)
   ].freeze
 
   INITIAL_LEVEL = 0
   INITIAL_POSITION = 2
-  MAX_LEVEL = LEVELS.count - 1
+  RAILWAY_LEVEL = LEVELS.count - 1
 
   def progress(timestamp)
     rotations.each_with_index do |rotation, index|
@@ -36,7 +38,7 @@ class Game::World < ApplicationRecord
     pattern = LEVELS[index].pattern
     rotation = rotations[index]
 
-    pattern[position + rotation] != PATTERN_DEADLY
+    pattern[position + rotation] != PATTERN_TNT
   end
 
   private
