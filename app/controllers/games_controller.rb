@@ -7,14 +7,26 @@ class GamesController < ApplicationController
     redirect_to :play
   end
 
-  def play
+  # ADD LOBBY
+  #   START
+  #     INTRO
+  #       GAME
+  #         FINAL SCREEN
+
+  def join
     join_player if @game.running
 
     # TASK - add player status view
     @player = @game.players.find_by(identity: @player_identity)
   end
 
+  def show
+    @game = Game.find(id: params[:id])
+  end
+
   def move
+    @game = Game.find_by(running: true)
+
     if @game.running?
       Game::Action.create(
         game_id: @game.id,
@@ -44,7 +56,7 @@ class GamesController < ApplicationController
   def set_game
     # TASK - add indexes for all used queries, discuss if one on 'running' is needed?
     # find a running game
-    @game = Game.find_by(running: true)
+
 
     # find the last finished game
     @game ||= Game.where(running: false).last

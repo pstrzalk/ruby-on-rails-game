@@ -13,11 +13,19 @@ class Game::World < ApplicationRecord
     Spawn.new(pattern: '----------------------------------------', speed: 0),
     Lane.new(pattern: '..NNNNNNNN..............NNNNNNNN........', speed: 3),
     Lane.new(pattern: '..N.N.N.N........................N.N.N..', speed: 5),
-    Lane.new(pattern: '..NNNNNNNNN...............NNNNNNNNNNNN..', speed: 2),
+    Lane.new(pattern: '..NNNNNNNNN.....NNNN......NNNNNNNNNNNN..', speed: 2),
     Lane.new(pattern: 'NN......NN...................NN.....NN..', speed: 5),
     Lane.new(pattern: '..NNNNNNNN...............NNNNNNNNNNNNN..', speed: 10),
-    Lane.new(pattern: '..........NNNN..........................', speed: 8),
+    Lane.new(pattern: '..........NNNNNNNNNNNNNNNN..............', speed: 8),
     Lane.new(pattern: '..N..............................N......', speed: 5),
+    Lane.new(pattern: 'NNN...NNN...............NNN.........NNNN', speed: 2),
+    Lane.new(pattern: '..NNNNNNNNNNNNNNNN......NNNNNNNN........', speed: 3),
+    Lane.new(pattern: '..N.N.N.N...N.N.N.N...............N.N.N.', speed: 5),
+    Lane.new(pattern: '................NNNNNNNNN.NNNNNNNNNNNN..', speed: 2),
+    Lane.new(pattern: 'NN......NNNNNNNN.............NN.....NN..', speed: 5),
+    Lane.new(pattern: '..NNNNNNNNNNNNNNNN.......NNNNNNNNNNNNN..', speed: 10),
+    Lane.new(pattern: '..........NNNN..........................', speed: 8),
+    Lane.new(pattern: '..N.............NNNNNNNN.........N......', speed: 5),
     Lane.new(pattern: 'NNN...NNN...............NNN.........NNNN', speed: 2),
     Railway.new(pattern: '========================================', speed: 0)
   ].freeze
@@ -28,7 +36,7 @@ class Game::World < ApplicationRecord
 
   def progress(timestamp)
     rotations.each_with_index do |rotation, index|
-      next unless rotate_level?(index, timestamp)
+      next unless level_should_rotate?(index, timestamp)
 
       rotations[index] = rotation >= WIDTH ? 0 : rotation + 1
     end
@@ -43,7 +51,7 @@ class Game::World < ApplicationRecord
 
   private
 
-  def rotate_level?(index, timestamp)
+  def level_should_rotate?(index, timestamp)
     speed = LEVELS[index].speed
 
     return false if speed.zero?

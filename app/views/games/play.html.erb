@@ -1,8 +1,8 @@
-<h1>Game #<%= @game.id%></h1>
-<h2><%= @game.running? ? 'Running' : 'Finished' %>
-<br />
+<h1 class="text-2xl mb-8">
+  Game #<%= @game.id%> (<%= @game.running? ? 'Running' : 'Finished' %>)
+</h1>
 
-<div class="game-wrapper border-black border-4 p-0" data-controller="game">
+<div class="game-wrapper rounded-xl overflow-hidden mb-8" data-controller="game">
   <%= turbo_stream_from dom_id(@game) %>
 
   <%= render @game %>
