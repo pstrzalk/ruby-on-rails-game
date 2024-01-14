@@ -1,0 +1,26 @@
+<div class="mb-2">
+  <h2 class="inline-block pt-4">
+    Game #<%= @game.id%> (<%= @game.running? ? 'Running' : 'Finished' %>)
+  </h2>
+
+  <div class="inline-block float-right">
+    <% if @player %>
+      <div class="inline-block">
+        <%= turbo_stream_from dom_id(@player) %>
+
+        <%= render @player %>
+      </div>
+    <% end %>
+
+    <% if @game.running && !@player%>
+      <%= link_to 'Join Game', join_game_path(@game), class: "btn-blue inline-block align-top" %>
+    <% end %>
+    <%= link_to 'Games', games_path, class: "btn-gray inline-block align-top ml-2" %>
+  </div>
+</div>
+
+<div data-controller="game" data-game-id="<%= @game.id %>" class="game-wrapper rounded-xl overflow-hidden mb-8">
+  <%= turbo_stream_from dom_id(@game) %>
+
+  <%= render @game %>
+</div>

@@ -34,7 +34,7 @@ class Game < ApplicationRecord
     players.build(
       identity: player_identity,
       position_vertical: World::INITIAL_LEVEL,
-      position_horizontal: World::INITIAL_POSITION
+      position_horizontal: rand(World::INITIAL_POSITION_RANGE)
     )
 
     true
@@ -44,10 +44,9 @@ class Game < ApplicationRecord
     return false unless running
 
     self.last_action_id = actions.last.id if actions.any?
-    moves = moves_from_actions(actions)
 
     progress_world
-    progress_players(moves)
+    progress_players(actions)
     progress_train
     progress_time
 
@@ -86,10 +85,18 @@ class Game < ApplicationRecord
 
   def progress_world
     world.progress(time.current)
+
+    players.each do |player|
+      next unless player.alive?
+
+      player.kill unless world.safe_at?(player.position_vertical, player.position_horizontal)
+    end
   end
 
-  def progress_players(moves)
-    players.each do |player|
+  def progress_players(actions)
+    moves = moves_from_actions(actions)
+
+    players.select(&:alive?).each do |player|
       while player.alive? && moves[player.identity].present?
         move = moves[player.identity].pop
 

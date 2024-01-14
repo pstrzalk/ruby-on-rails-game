@@ -1,5 +1,5 @@
 <% presenter = GamePresenter.new(game:) %>
-<div class="game grid gap-0" style="grid-template-columns: repeat(40,minmax(0,1fr));" id="<%= dom_id(game) %>">
+<div class="game grid gap-0" style="grid-template-columns: repeat(<%= Game::World::WIDTH%>,minmax(0,1fr));" id="<%= dom_id(game) %>">
   <% presenter.rows.each_with_index do |row, row_index| %>
     <% row.each_with_index do |cell, cell_index| %>
       <% if cell == Game::World::PATTERN_TNT %>

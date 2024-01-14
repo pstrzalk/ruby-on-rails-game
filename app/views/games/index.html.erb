@@ -1,0 +1,11 @@
+<h1>
+  Ruby on Rails - Game
+</h1>
+
+<h2>Games</h2>
+
+<% @games.each do |game| %>
+  <p>
+    <%= link_to "##{game.id}", game %><%= ' - Running' if game.running? %><br />
+  </p>
+<% end %>

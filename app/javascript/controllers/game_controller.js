@@ -6,6 +6,7 @@ export default class extends Controller {
 
     if (csrfMeta) {
       this.csrfToken = csrfMeta.content;
+      this.gameId = this.data.get("id");
 
       document.onkeydown = this.handleKey.bind(this);
     } else {
@@ -34,7 +35,7 @@ export default class extends Controller {
 
   move(direction) {
     const xhr = new XMLHttpRequest();
-    const url = '/games/move/' + direction;
+    const url = `/games/${this.gameId}/move/${direction}`;
 
     xhr.open("PUT", url, true);
     xhr.setRequestHeader('X-CSRF-Token', this.csrfToken);

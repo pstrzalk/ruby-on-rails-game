@@ -1,11 +1,5 @@
 class GamesController < ApplicationController
-  before_action :set_player_identity, :set_game
-
-  def start
-    StartGameService.call unless @game.running?
-
-    redirect_to :play
-  end
+  before_action :set_player_identity
 
   # ADD LOBBY
   #   START
@@ -13,55 +7,63 @@ class GamesController < ApplicationController
   #       GAME
   #         FINAL SCREEN
 
-  def join
-    join_player if @game.running
-
-    # TASK - add player status view
-    @player = @game.players.find_by(identity: @player_identity)
+  def index
+    @games = Game.all.order(id: :desc)
   end
 
   def show
-    @game = Game.find(id: params[:id])
+    @game = Game.find(params[:id])
+
+    # TASK - add player status/summary view
+    @player = @game.players.find_by(identity: @player_identity)
+  end
+
+  def join
+    @game = Game.find(params[:id])
+
+    unless @game
+      redirect_to games_path, error: 'No such game'
+      return
+    end
+
+    unless @game.running
+      redirect_to games_path, notice: 'Game already finished'
+      return
+    end
+
+    @game.join(@player_identity)
+    @game.save
+
+    redirect_to @game
   end
 
   def move
-    @game = Game.find_by(running: true)
+    @game = Game.find(params[:id])
 
-    if @game.running?
-      Game::Action.create(
-        game_id: @game.id,
-        action_type: 'move',
-        data: { player_identity: @player_identity, direction: params[:direction] }
-      )
+    unless @game
+      redirect_to games_path, error: 'No such game'
+      return
     end
+
+    unless @game.running
+      redirect_to games_path, notice: 'Game already finished'
+      return
+    end
+
+    Game::Action.create(
+      game_id: @game.id,
+      action_type: 'move',
+      data: { player_identity: @player_identity, direction: params[:direction] }
+    )
 
     render json: {}
   end
 
   protected
 
-  def join_player
-    @game.save if @game.join(@player_identity)
-  end
-
-  def next_player_identity
-    SecureRandom.uuid
-  end
-
   def set_player_identity
-    @player_identity = cookies.permanent[:player_identity] || next_player_identity
+    @player_identity = cookies.permanent[:player_identity]
+    @player_identity ||= SecureRandom.uuid
     cookies.permanent[:player_identity] = @player_identity
-  end
-
-  def set_game
-    # TASK - add indexes for all used queries, discuss if one on 'running' is needed?
-    # find a running game
-
-
-    # find the last finished game
-    @game ||= Game.where(running: false).last
-    return if @game
-
-    raise StandardError, 'no_game'
   end
 end

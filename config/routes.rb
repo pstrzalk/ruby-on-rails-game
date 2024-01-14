@@ -4,5 +4,12 @@ Rails.application.routes.draw do
   put '/games/move/:direction', to: "games#move"
   post '/games/start', to: "games#start"
 
-  root "games#play"
+  resources :games, only: [:show, :index] do
+    member do
+      get :join
+      put 'move/:direction', to: 'games#move'
+    end
+  end
+
+  root "games#index"
 end
