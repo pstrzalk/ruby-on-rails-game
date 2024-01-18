@@ -27,6 +27,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_28_213613) do
     t.bigint "game_id"
     t.uuid "identity"
     t.boolean "alive", default: true
+    t.boolean "winner", default: false
     t.integer "position_horizontal", default: 0
     t.integer "position_vertical", default: 0
     t.datetime "created_at", null: false
@@ -35,9 +36,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_28_213613) do
   end
 
   create_table "game_times", force: :cascade do |t|
-    t.integer "current"
+    t.bigint "game_id"
+    t.bigint "current"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_game_times_on_game_id"
   end
 
   create_table "game_worlds", force: :cascade do |t|
@@ -47,15 +50,12 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_28_213613) do
   end
 
   create_table "games", force: :cascade do |t|
-    t.bigint "time_id"
     t.bigint "world_id"
     t.integer "train_position"
-    t.bigint "winner"
     t.bigint "last_action_id"
-    t.boolean "running", default: false
+    t.bigint "finished_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["time_id"], name: "index_games_on_time_id"
     t.index ["world_id"], name: "index_games_on_world_id"
   end
 

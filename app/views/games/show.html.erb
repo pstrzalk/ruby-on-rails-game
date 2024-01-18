@@ -12,7 +12,7 @@
       </div>
     <% end %>
 
-    <% if @game.running && !@player%>
+    <% if @game.running? && !@player%>
       <%= link_to 'Join Game', join_game_path(@game), class: "btn-blue inline-block align-top" %>
     <% end %>
     <%= link_to 'Games', games_path, class: "btn-gray inline-block align-top ml-2" %>

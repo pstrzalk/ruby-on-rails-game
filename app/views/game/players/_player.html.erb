@@ -1,4 +1,4 @@
-<div id="<%= dom_id(player) %>" class="bg-white text-black max-w-2xl shadow overflow-hidden sm:rounded-lg">
+<div id="<%= dom_id(player) %>" data-player-identity="<%= player.identity %>" class="bg-white text-black max-w-2xl shadow overflow-hidden sm:rounded-lg">
   <div class="py-3 px-6 columns-2">
     <div class=""><%= player.alive? ? 'Alive' : 'Dead' %></div>
     <div class="">Position: <%= player.position_horizontal %> x <%= player.position_vertical %></div>

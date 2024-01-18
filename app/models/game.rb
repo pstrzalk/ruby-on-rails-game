@@ -2,11 +2,6 @@ class Game < ApplicationRecord
   PlayerNotInGame = Class.new(StandardError)
   InvalidDirection = Class.new(StandardError)
 
-  # Where should time belong? it is used only in the World but it also affects players
-  # I think it belongs to the game, as it may interfere with other elements in the future
-  belongs_to :time, class_name: 'Game::Time', dependent: :destroy
-  accepts_nested_attributes_for :time
-
   has_many :players, class_name: 'Game::Player', dependent: :destroy
   accepts_nested_attributes_for :players
 
@@ -15,13 +10,15 @@ class Game < ApplicationRecord
 
   broadcasts_to ->(game) { "game_#{game.id}" }
 
+  scope :running, -> { where(finished_at: nil) }
+
   MOVE_LEFT = 'l'.freeze
   MOVE_RIGHT = 'r'.freeze
   MOVE_FORWARD = 'f'.freeze
   MOVE_BACK = 'b'.freeze
   MOVE_DIRECTIONS = Set.new([MOVE_LEFT, MOVE_RIGHT, MOVE_FORWARD, MOVE_BACK]).freeze
 
-  TRAIN_SPEED = 1000
+  TRAIN_SPEED = 10
 
   # hammer?
 
@@ -40,56 +37,56 @@ class Game < ApplicationRecord
     true
   end
 
-  def progress(actions: [])
-    return false unless running
+  def running?
+    finished_at.nil?
+  end
+
+  def winner
+    return if running?
+
+    players.find(&:winner?)
+  end
+
+  def progress(timestamp:, actions: [])
+    return false unless running?
 
     self.last_action_id = actions.last.id if actions.any?
 
-    progress_world
+    progress_world(timestamp)
+    progress_train(timestamp)
     progress_players(actions)
-    progress_train
-    progress_time
 
     changed? || world.changed? || players.any?(&:changed?)
   end
 
   protected
 
-  def game_over(won_by: nil)
-    self.running = false
-    self.winner = won_by
-  end
-
-  def progress_train
-    return unless (time.current % TRAIN_SPEED).zero?
-
-    if train_position == Game::World::WIDTH
-      game_over
-    else
-      winner = players.find do |player|
-        player.position_vertical == World::RAILWAY_LEVEL && player.position_horizontal == train_position
-      end
-
-      if winner
-        game_over(won_by: winner.id)
-      else
-        self.train_position += 1
-      end
-    end
-  end
-
-  def progress_time
-    time.progress
-    time.save
-  end
-
-  def progress_world
-    world.progress(time.current)
+  def progress_world(timestamp)
+    world.progress(timestamp)
 
     players.each do |player|
       next unless player.alive?
 
       player.kill unless world.safe_at?(player.position_vertical, player.position_horizontal)
+    end
+  end
+
+  def progress_train(timestamp)
+    return unless (timestamp % TRAIN_SPEED).zero?
+
+    if train_position == Game::World::WIDTH
+      self.finished_at = timestamp
+    else
+      winning_player = players.find do |player|
+        player.position_vertical == World::RAILWAY_LEVEL && player.position_horizontal == train_position
+      end
+
+      if winning_player
+        winning_player.winner = true
+        self.finished_at = timestamp
+      else
+        self.train_position += 1
+      end
     end
   end
 

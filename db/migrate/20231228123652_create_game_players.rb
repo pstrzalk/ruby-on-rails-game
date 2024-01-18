@@ -6,6 +6,7 @@ class CreateGamePlayers < ActiveRecord::Migration[7.1]
       t.uuid :identity
 
       t.boolean :alive, default: true
+      t.boolean :winner, default: false
       t.integer :position_horizontal, default: 0
       t.integer :position_vertical, default: 0
 

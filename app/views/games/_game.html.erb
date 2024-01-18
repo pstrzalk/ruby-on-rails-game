@@ -1,38 +1,65 @@
 <% presenter = GamePresenter.new(game:) %>
-<div class="game grid gap-0" style="grid-template-columns: repeat(<%= Game::World::WIDTH%>,minmax(0,1fr));" id="<%= dom_id(game) %>">
-  <% presenter.rows.each_with_index do |row, row_index| %>
-    <% row.each_with_index do |cell, cell_index| %>
-      <% if cell == Game::World::PATTERN_TNT %>
-        <%= image_tag("water_with_tnt.png", alt: "TNT on the water") %>
 
-      <% elsif cell == Game::World::PATTERN_RAILWAY %>
-        <% if presenter.train_position == cell_index %>
-          <% if presenter.players_positions.dig(row_index, cell_index) %>
-            <%= image_tag("rails_with_train_with_frog-green.png", alt: "Frog on the railway") %>
+<% if game.running? %>
+  <div class="game grid gap-0" style="grid-template-columns: repeat(<%= Game::World::WIDTH%>,minmax(0,1fr));" id="<%= dom_id(game) %>">
+    <% presenter.rows.each_with_index do |row, row_index| %>
+      <% row.each_with_index do |cell, cell_index| %>
+        <% if cell == Game::World::PATTERN_TNT %>
+          <%= image_tag("water_with_tnt.png", alt: "TNT on the water") %>
+
+        <% elsif cell == Game::World::PATTERN_RAILWAY %>
+          <% if presenter.train_position == cell_index %>
+            <% if presenter.players_positions.dig(row_index, cell_index) %>
+              <%= image_tag("rails_with_train_with_frog-green.png", alt: "Frog on the railway") %>
+            <% else %>
+              <%= image_tag("rails_with_train-green.png", alt: "Frog on the railway") %>
+            <% end %>
+          <% elsif presenter.players_positions.dig(row_index, cell_index) %>
+            <%= image_tag("rails_with_frog-green.png", alt: "Frog on the railway") %>
           <% else %>
-            <%= image_tag("rails_with_train-green.png", alt: "Frog on the railway") %>
+            <%= image_tag("rails-green.png", alt: "Railsway") %>
           <% end %>
-        <% elsif presenter.players_positions.dig(row_index, cell_index) %>
-          <%= image_tag("rails_with_frog-green.png", alt: "Frog on the railway") %>
-        <% else %>
-          <%= image_tag("rails-green.png", alt: "Railsway") %>
-        <% end %>
 
-      <% elsif cell == Game::World::PATTERN_GRAVEL %>
-        <% if presenter.players_positions.dig(row_index, cell_index) %>
-          <%= image_tag("gravel_with_frog.png", alt: "Gravel with frog") %>
-        <% else %>
-          <%= image_tag("gravel.png", alt: "Gravel") %>
-        <% end %>
+        <% elsif cell == Game::World::PATTERN_GRAVEL %>
+          <% if presenter.players_positions.dig(row_index, cell_index) %>
+            <%= image_tag("gravel_with_frog.png", alt: "Gravel with frog") %>
+          <% else %>
+            <%= image_tag("gravel.png", alt: "Gravel") %>
+          <% end %>
 
-      <% else %>
-        <% if presenter.players_positions.dig(row_index, cell_index) %>
-          <%= image_tag("water_with_frog.png", alt: "Frog on the water") %>
         <% else %>
-          <div style="background-color: #357cea;"></div>
-        <% end %>
+          <% if presenter.players_positions.dig(row_index, cell_index) %>
+            <%= image_tag("water_with_frog.png", alt: "Frog on the water") %>
+          <% else %>
+            <div style="background-color: #357cea;"></div>
+          <% end %>
 
+        <% end %>
       <% end %>
     <% end %>
-  <% end %>
-</div>
+  </div>
+<% else %>
+  <div id="<%= dom_id(game) %>" class="w-2/3 mx-auto" data-controller="gameover">
+    <% if game.winner %>
+      <div class="text-center mb-6">
+        <h2 id="winner_indicator" data-winner-identity="<%= game.winner.identity %>"></h2>
+        <h3>Take a look at the rest of the story</h3>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <%= image_tag("frogger_winner_1000.jpeg", alt: "Game outro slide 1 - kissing the frog", class: '') %>
+        <%= image_tag("frogger_winner_2000.jpeg", alt: "Game outro slide 2 - resting", class: '') %>
+        <%= image_tag("frogger_winner_3000.jpeg", alt: "Game outro slide 3 - putting wizard to jain", class: '') %>
+        <%= image_tag("frogger_winner_4000.jpeg", alt: "Game outro slide 4 - happily ever after", class: '') %>
+      </div>
+    <% else %>
+      <div class="text-center mb-6">
+        <h2>Better luck next time Prince...</h2>
+        <h3>The Princess was kidnapped and the Prince was eating flies for the rest of his days</h3>
+      </div>
+      <div class="grid grid-cols-1 gap-4">
+        <%= image_tag("frog_looking_into_distance.jpeg", alt: "Game outro slide - frog looking into distance", class: '') %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

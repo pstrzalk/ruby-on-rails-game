@@ -26,7 +26,7 @@ class GamesController < ApplicationController
       return
     end
 
-    unless @game.running
+    unless @game.running?
       redirect_to games_path, notice: 'Game already finished'
       return
     end
@@ -45,7 +45,7 @@ class GamesController < ApplicationController
       return
     end
 
-    unless @game.running
+    unless @game.running?
       redirect_to games_path, notice: 'Game already finished'
       return
     end
