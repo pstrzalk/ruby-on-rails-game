@@ -2,23 +2,26 @@ class Game::World < ApplicationRecord
   PATTERN_TNT = 'N'.freeze
   PATTERN_GRAVEL = '-'.freeze
   PATTERN_RAILWAY = '='.freeze
+  PATTERN_BLACK_MONSTER = 'B'.freeze
+  PATTERN_GREEN_MONSTER = 'G'.freeze
+  PATTERN_VIOLET_MONSTER = 'V'.freeze
 
   WIDTH = 30
 
-  Lane = Data.define(:pattern, :speed)
+  Lane = Data.define(:pattern, :moves_every)
   Spawn = Class.new(Lane)
   Railway = Class.new(Lane)
 
   LEVELS = [
-    Spawn.new(pattern:   '------------------------------', speed: 0),
-    Lane.new(pattern:    '..............NNNNNNNN........', speed: 3),
-    Lane.new(pattern:    '.......................N.N.N..', speed: 5),
-    Lane.new(pattern:    'NN.................NN.....NN..', speed: 5),
-    Lane.new(pattern:    '.......................N......', speed: 5),
-    Lane.new(pattern:    '..NNNNNN......NNN.........NNNN', speed: 2),
-    Lane.new(pattern:    '..NN..........................', speed: 8),
-    Lane.new(pattern:    'NN............NNN.........NNNN', speed: 2),
-    Railway.new(pattern: '==============================', speed: 0)
+    Spawn.new(pattern:   '------------------------------', moves_every: 0),
+    Lane.new(pattern:    '..............NVGVNVGV........', moves_every: 3),
+    Lane.new(pattern:    '.......................N.NBN..', moves_every: 5),
+    Lane.new(pattern:    'VVG................GG.....NN..', moves_every: 5),
+    Lane.new(pattern:    '.......................N......', moves_every: 5),
+    Lane.new(pattern:    '..NNVVNB......BBB.........NNNN', moves_every: 2),
+    Lane.new(pattern:    '..VV..........................', moves_every: 8),
+    Lane.new(pattern:    'BN............BNB.........NGGN', moves_every: 2),
+    Railway.new(pattern: '=============================', moves_every: 0)
   ].freeze
 
   INITIAL_LEVEL = 0
@@ -39,6 +42,8 @@ class Game::World < ApplicationRecord
 
   private
 
+  # Task - add hammer
+
   def at(index, position)
     pattern = LEVELS[index].pattern
 
@@ -47,10 +52,10 @@ class Game::World < ApplicationRecord
   end
 
   def level_should_rotate?(index, timestamp)
-    speed = LEVELS[index].speed
+    moves_every = LEVELS[index].moves_every
 
-    return false if speed.zero?
+    return false if moves_every.zero?
 
-    (timestamp % speed).zero?
+    (timestamp % moves_every).zero?
   end
 end

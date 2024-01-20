@@ -18,7 +18,7 @@ class Game < ApplicationRecord
   MOVE_BACK = 'b'.freeze
   MOVE_DIRECTIONS = Set.new([MOVE_LEFT, MOVE_RIGHT, MOVE_FORWARD, MOVE_BACK]).freeze
 
-  TRAIN_SPEED = 10
+  TRAIN_MOVES_EVERY = 2
 
   # hammer?
 
@@ -72,22 +72,24 @@ class Game < ApplicationRecord
   end
 
   def progress_train(timestamp)
-    return unless (timestamp % TRAIN_SPEED).zero?
+    if (timestamp % TRAIN_MOVES_EVERY).zero?
+      self.train_position += 1
 
-    if train_position == Game::World::WIDTH
-      self.finished_at = timestamp
-    else
-      winning_player = players.find do |player|
-        player.position_vertical == World::RAILWAY_LEVEL && player.position_horizontal == train_position
-      end
-
-      if winning_player
-        winning_player.winner = true
+      if train_position == Game::World::WIDTH
         self.finished_at = timestamp
-      else
-        self.train_position += 1
+
+        return
       end
     end
+
+    winning_player = players.find do |player|
+      player.position_vertical == World::RAILWAY_LEVEL && player.position_horizontal == train_position
+    end
+
+    return unless winning_player
+
+    winning_player.winner = true
+    self.finished_at = timestamp
   end
 
   def progress_players(actions)

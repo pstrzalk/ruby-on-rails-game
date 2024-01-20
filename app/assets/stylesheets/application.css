@@ -13,3 +13,10 @@
  *= require_tree .
  *= require_self
  */
+
+.main_screen {
+  background: url("frogger_title_2__cut.jpeg");
+  background-position: 0 50px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

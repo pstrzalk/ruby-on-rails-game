@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>RubyOnRailsGame</title>
+    <title>Ruby on Rails - The Game</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,8 +11,10 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-black text-white">
-    <main class="container mx-auto mt-5">
+  <body class="bg-black text-white <% if @home %>main_screen<% end %>">
+    <%= render partial: "/layouts/top_nav" %>
+
+    <main class="container mx-auto">
       <%= yield %>
     </main>
   </body>

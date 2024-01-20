@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  get "up" => "rails/health#show", as: :rails_health_check
+  get 'up' => 'rails/health#show', as: :rails_health_check
 
-  put '/games/move/:direction', to: "games#move"
-  post '/games/start', to: "games#start"
+  put '/games/move/:direction', to: 'games#move'
+  post '/games/start', to: 'games#start'
 
+  resources :intro, only: :index
   resources :games, only: [:show, :index] do
     member do
       get :join
@@ -11,5 +12,5 @@ Rails.application.routes.draw do
     end
   end
 
-  root "games#index"
+  root 'home#index'
 end

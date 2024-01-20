@@ -1,12 +1,6 @@
 class GamesController < ApplicationController
   before_action :set_player_identity
 
-  # ADD LOBBY
-  #   START
-  #     INTRO
-  #       GAME
-  #         FINAL SCREEN
-
   def index
     @games = Game.all.order(id: :desc)
   end

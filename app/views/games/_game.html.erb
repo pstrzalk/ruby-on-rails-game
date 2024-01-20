@@ -7,12 +7,22 @@
         <% if cell == Game::World::PATTERN_TNT %>
           <%= image_tag("water_with_tnt.png", alt: "TNT on the water") %>
 
+        <% elsif cell == Game::World::PATTERN_VIOLET_MONSTER %>
+          <%= image_tag("water-with-violet-monster.png") %>
+
+        <% elsif cell == Game::World::PATTERN_BLACK_MONSTER %>
+          <%= image_tag("water-with-black-monster.png") %>
+
+        <% elsif cell == Game::World::PATTERN_GREEN_MONSTER %>
+          <%= image_tag("water-with-green-monster.png") %>
+
         <% elsif cell == Game::World::PATTERN_RAILWAY %>
           <% if presenter.train_position == cell_index %>
             <% if presenter.players_positions.dig(row_index, cell_index) %>
               <%= image_tag("rails_with_train_with_frog-green.png", alt: "Frog on the railway") %>
             <% else %>
-              <%= image_tag("rails_with_train-green.png", alt: "Frog on the railway") %>
+              <%= image_tag("rails_with_train_double--left.png", alt: "Frog on the railway") %>
+              <%= image_tag("rails_with_train_double--right.png", alt: "Frog on the railway") %>
             <% end %>
           <% elsif presenter.players_positions.dig(row_index, cell_index) %>
             <%= image_tag("rails_with_frog-green.png", alt: "Frog on the railway") %>

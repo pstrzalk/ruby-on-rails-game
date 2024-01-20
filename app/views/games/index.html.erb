@@ -1,11 +1,31 @@
-<h1>
-  Ruby on Rails - Game
-</h1>
+<div class="max-w-screen-xl mx-auto">
+  <h2 class="text-4xl font-extrabold dark:text-white mb-8">Games</h2>
 
-<h2>Games</h2>
+  <div class="">
+    <table class="mx-auto">
+      <tr class="border-b-2">
+        <td class="py-4 px-12 font-bold">Number</td>
+        <td class="py-4 px-12 font-bold">Status</td>
+        <td class="py-4 px-12"></td>
+      </tr>
 
-<% @games.each do |game| %>
-  <p>
-    <%= link_to "##{game.id}", game %><%= ' - Running' if game.running? %><br />
-  </p>
-<% end %>
+      <% @games.each_with_index do |game, index| %>
+        <tr>
+          <td class="py-4 px-12">
+            <%= game.id %>
+          </td>
+          <td class="py-4 px-12">
+            <%= game.running? ? 'Ongoing' : 'Finished' %>
+          </td>
+          <td class="py-4 px-12">
+            <% if game.running? %>
+              <%= link_to 'Play', game, class: 'btn-blue py-3 px-12' %>
+            <% else %>
+              <%= link_to 'Check result', game, class: 'btn-gray py-3 px-4' %>
+            <% end %>
+          </td>
+        <tr>
+      <% end %>
+    </table>
+  </div>
+</div>

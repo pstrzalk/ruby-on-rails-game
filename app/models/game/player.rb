@@ -1,6 +1,8 @@
 class Game::Player < ApplicationRecord
   broadcasts_to ->(player) { "game_player_#{player.id}" }
 
+  belongs_to :game
+
   def kill
     self.alive = false
   end

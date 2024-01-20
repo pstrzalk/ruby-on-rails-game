@@ -31,3 +31,7 @@ h1 {
 h2 {
   @apply text-2xl mb-4;
 }
+
+p {
+  @apply text-xl;
+}
