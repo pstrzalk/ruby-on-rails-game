@@ -1,7 +1,11 @@
-class Game::Time < ApplicationRecord
-  belongs_to :game
+# frozen_string_literal: true
 
-  def progress
-    self.current += 1
+class Game < ApplicationRecord
+  class Time < ApplicationRecord
+    belongs_to :game
+
+    def progress
+      self.current += 1
+    end
   end
 end

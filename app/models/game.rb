@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Game < ApplicationRecord
   PlayerNotInGame = Class.new(StandardError)
   InvalidDirection = Class.new(StandardError)
@@ -12,10 +14,10 @@ class Game < ApplicationRecord
 
   scope :running, -> { where(finished_at: nil) }
 
-  MOVE_LEFT = 'l'.freeze
-  MOVE_RIGHT = 'r'.freeze
-  MOVE_FORWARD = 'f'.freeze
-  MOVE_BACK = 'b'.freeze
+  MOVE_LEFT = 'l'
+  MOVE_RIGHT = 'r'
+  MOVE_FORWARD = 'f'
+  MOVE_BACK = 'b'
   MOVE_DIRECTIONS = Set.new([MOVE_LEFT, MOVE_RIGHT, MOVE_FORWARD, MOVE_BACK]).freeze
 
   TRAIN_MOVES_EVERY = 2
@@ -97,7 +99,7 @@ class Game < ApplicationRecord
     self.finished_at = timestamp
   end
 
-  def progress_players(actions)
+  def progress_players(actions) # rubocop:disable all
     moves = moves_from_actions(actions)
 
     players.select(&:alive?).each do |player|
@@ -124,7 +126,7 @@ class Game < ApplicationRecord
 
     actions.each_with_object({}) do |action, memo|
       player_identity = action.data['player_identity']
-      next memo unless player_identity.present?
+      next memo if player_identity.blank?
 
       memo[player_identity] ||= []
       memo[player_identity] << action.data['direction']

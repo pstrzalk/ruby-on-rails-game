@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GamePresenter
   def initialize(game:)
     self.game = game
@@ -5,13 +7,11 @@ class GamePresenter
 
   def rows
     @rows ||= Game::World::LEVELS.each_with_index.map do |row, index|
-      row.pattern.split('').rotate(game.world.rotations[index])
+      row.pattern.chars.rotate(game.world.rotations[index])
     end.reverse
   end
 
-  def train_position
-    game.train_position
-  end
+  delegate :train_position, to: :game
 
   def players_positions
     return @players_positions if @players_positions

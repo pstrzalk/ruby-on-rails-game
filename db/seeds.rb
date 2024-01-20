@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 StartNewGameService.call
 
-puts 'Seeds loaded'
+Rails.logger.debug 'Seeds loaded'

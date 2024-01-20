@@ -1,11 +1,15 @@
-class Game::Start
-  def self.call
-    game = Game.construct
-    game.save!
+# frozen_string_literal: true
 
-    time = Game::Time.new(game:, current: 0)
-    time.save!
+class Game < ApplicationRecord
+  class Start
+    def self.call
+      game = Game.construct
+      game.save!
 
-    game
+      time = Game::Time.new(game:, current: 0)
+      time.save!
+
+      game
+    end
   end
 end

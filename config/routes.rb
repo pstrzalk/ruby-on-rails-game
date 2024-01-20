@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   get 'up' => 'rails/health#show', as: :rails_health_check
 
@@ -5,7 +7,7 @@ Rails.application.routes.draw do
   post '/games/start', to: 'games#start'
 
   resources :intro, only: :index
-  resources :games, only: [:show, :index] do
+  resources :games, only: %i[show index] do
     member do
       get :join
       put 'move/:direction', to: 'games#move'

@@ -1,0 +1,34 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-minitest
+
+AllCops:
+  TargetRubyVersion: 3.2.2
+  NewCops: enable
+  Exclude:
+    - 'config/initializers/*'
+    - 'config/environments/*'
+    - 'config/environment.rb'
+    - 'config/application.rb'
+    - 'config/importmap.rb'
+    - 'config/puma.rb'
+    - 'config.ru'
+    - 'config/boot.rb'
+    - 'db/migrate/*'
+    - 'db/schema.rb'
+    - 'bin/*'
+    - 'Guardfile'
+
+Metrics/ClassLength:
+  Exclude:
+    - 'test/**/*'
+
+Metrics/MethodLength:
+  Max: 20
+
+Style/Documentation:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
