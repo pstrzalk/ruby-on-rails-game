@@ -21,10 +21,15 @@ class Game < ApplicationRecord
   TRAIN_MOVES_EVERY = 2
 
   # hammer?
+  def self.construct
+    instance = new
+    instance.world = World.construct
+    instance.last_action_id = 0
+    instance.train_position = 0
 
-  # Improper design
-  # Game should define player_identity (or even Player might?) and return it.
-  # But it makes it harder to control idempotency when used in the controller
+    instance
+  end
+
   def join(player_identity)
     return false if players.any? { _1.identity == player_identity }
 

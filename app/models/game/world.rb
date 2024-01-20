@@ -15,7 +15,7 @@ class Game::World < ApplicationRecord
   LEVELS = [
     Spawn.new(pattern:   '------------------------------', moves_every: 0),
     Lane.new(pattern:    '..............NVGVNVGV........', moves_every: 3),
-    Lane.new(pattern:    '.......................N.NBN..', moves_every: 5),
+    Lane.new(pattern:    'N......................N.NBN..', moves_every: 5),
     Lane.new(pattern:    'VVG................GG.....NN..', moves_every: 5),
     Lane.new(pattern:    '.......................N......', moves_every: 5),
     Lane.new(pattern:    '..NNVVNB......BBB.........NNNN', moves_every: 2),
@@ -27,6 +27,13 @@ class Game::World < ApplicationRecord
   INITIAL_LEVEL = 0
   INITIAL_POSITION_RANGE = 4..WIDTH-4
   RAILWAY_LEVEL = LEVELS.count - 1
+
+  def self.construct
+    instance = Game::World.new
+    instance.rotations = Array.new(Game::World::LEVELS.count) { 0 }
+
+    instance
+  end
 
   def progress(timestamp)
     rotations.each_with_index do |rotation, index|
