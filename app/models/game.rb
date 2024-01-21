@@ -22,7 +22,7 @@ class Game < ApplicationRecord
   MOVE_BACK = 'b'
   MOVE_DIRECTIONS = Set.new([MOVE_LEFT, MOVE_RIGHT, MOVE_FORWARD, MOVE_BACK]).freeze
 
-  TRAIN_MOVES_EVERY = 3
+  TRAIN_MOVES_EVERY = 50
 
   # hammer?
   def self.construct

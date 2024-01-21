@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/pstrzalk/rails_permanent_job
+  revision: 8ab2988595aba0cf40956e90f5a6b4fc235b7cc8
+  specs:
+    rails_permanent_job (0.2.0)
+      rake (~> 13)
+      serverengine (~> 2.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -225,6 +233,9 @@ GEM
       rubocop (>= 1.33.0, < 2.0)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
+    serverengine (2.3.2)
+      sigdump (~> 0.2.2)
+    sigdump (0.2.5)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -281,6 +292,7 @@ DEPENDENCIES
   pry
   puma (>= 5.0)
   rails (~> 7.1.2)
+  rails_permanent_job!
   redis (>= 4.0.1)
   rubocop
   rubocop-minitest

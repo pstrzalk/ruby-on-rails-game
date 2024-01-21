@@ -15,7 +15,7 @@ class GamesController < ApplicationController
   end
 
   def join
-    @game = Game.find(params[:id])
+    @game = Game.find_by(id: params[:id])
 
     unless @game
       redirect_to games_path, error: 'No such game'
@@ -28,26 +28,20 @@ class GamesController < ApplicationController
     end
 
     @game.join(@player_identity)
-    @game.save
+    @game.save!
 
     redirect_to @game
   end
 
   def move
-    @game = Game.find(params[:id])
-
-    unless @game
+    game_exists = Game.running.exists?(id: params[:id])
+    unless game_exists
       redirect_to games_path, error: 'No such game'
       return
     end
 
-    unless @game.running?
-      redirect_to games_path, notice: 'Game already finished'
-      return
-    end
-
     Game::Action.create(
-      game_id: @game.id,
+      game_id: params[:id],
       action_type: 'move',
       data: { player_identity: @player_identity, direction: params[:direction] }
     )

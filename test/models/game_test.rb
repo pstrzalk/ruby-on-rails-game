@@ -176,4 +176,19 @@ class GameTest < ActiveSupport::TestCase
     assert_equal timestamp, game.finished_at
     assert_equal player, game.winner
   end
+
+  test 'uses optimistic locking' do
+    Game::Start.call
+
+    game_v1 = Game.first
+    game_v1.finished_at = Time.current
+
+    game_v2 = Game.first
+    game_v2.finished_at = Time.current
+
+    game_v1.save!
+    assert_raises(ActiveRecord::StaleObjectError) do
+      game_v2.save!
+    end
+  end
 end
