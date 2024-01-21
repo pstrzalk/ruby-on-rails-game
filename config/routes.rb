@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   put '/games/move/:direction', to: 'games#move'
   post '/games/start', to: 'games#start'
 
-  resources :intro, only: :index
+  resources :story, only: :index
   resources :games, only: %i[show index] do
     member do
       get :join
