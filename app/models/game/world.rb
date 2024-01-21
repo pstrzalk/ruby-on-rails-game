@@ -56,8 +56,6 @@ class Game < ApplicationRecord
 
     private
 
-    # Task - add hammer
-
     def at(index, position)
       pattern = LEVELS[index].pattern
 

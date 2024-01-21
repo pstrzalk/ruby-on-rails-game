@@ -24,8 +24,6 @@ class Game < ApplicationRecord
 
   TRAIN_MOVES_EVERY = 50
 
-  # hammer?
-
   def self.construct
     instance = new
     instance.world = World.construct

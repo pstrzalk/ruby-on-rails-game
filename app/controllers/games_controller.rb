@@ -10,7 +10,6 @@ class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
 
-    # TASK - add player status/summary view
     @player = @game.players.find_by(identity: @player_identity)
   end
 

@@ -9,7 +9,7 @@ class Game < ApplicationRecord
       game2 = Start.call
 
       TRAIN_MOVES_EVERY.times { ProgressAll.call }
-      game1.reload # optimistic locking
+      game1.reload
       game1.update(finished_at: ::Time.current)
 
       TRAIN_MOVES_EVERY.times { ProgressAll.call }
