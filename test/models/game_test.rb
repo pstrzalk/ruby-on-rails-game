@@ -177,14 +177,26 @@ class GameTest < ActiveSupport::TestCase
     assert_equal player, game.winner
   end
 
+  test 'up to 4 players can join' do
+    game = Game.construct
+    joins = []
+    joins << game.join(SecureRandom.uuid)
+    joins << game.join(SecureRandom.uuid)
+    joins << game.join(SecureRandom.uuid)
+    joins << game.join(SecureRandom.uuid)
+    joins << game.join(SecureRandom.uuid)
+
+    assert_equal [true, true, true, true, false], joins
+  end
+
   test 'uses optimistic locking' do
     Game::Start.call
 
-    game_v1 = Game.first
-    game_v1.finished_at = Time.current
+    game_v1 = Game.last
+    game_v2 = Game.last
 
-    game_v2 = Game.first
-    game_v2.finished_at = Time.current
+    game_v1.join(SecureRandom.uuid)
+    game_v2.join(SecureRandom.uuid)
 
     game_v1.save!
     assert_raises(ActiveRecord::StaleObjectError) do

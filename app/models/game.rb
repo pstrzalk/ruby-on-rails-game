@@ -25,6 +25,7 @@ class Game < ApplicationRecord
   TRAIN_MOVES_EVERY = 50
 
   # hammer?
+
   def self.construct
     instance = new
     instance.world = World.construct
@@ -36,6 +37,7 @@ class Game < ApplicationRecord
 
   def join(player_identity)
     return false if players.any? { _1.identity == player_identity }
+    return false if players.size > 3
 
     players.build(
       identity: player_identity,

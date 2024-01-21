@@ -6,7 +6,7 @@ class Game < ApplicationRecord
       broadcasts_to ->(player) { "game_player_#{player.id}" }
     end
 
-    belongs_to :game
+    belongs_to :game, touch: true
 
     def kill
       self.alive = false
