@@ -10,7 +10,9 @@ class Game < ApplicationRecord
   belongs_to :world, class_name: 'Game::World', dependent: :destroy
   accepts_nested_attributes_for :world
 
-  broadcasts_to ->(game) { "game_#{game.id}" }
+  unless Rails.env.test?
+    broadcasts_to ->(game) { "game_#{game.id}" }
+  end
 
   scope :running, -> { where(finished_at: nil) }
 

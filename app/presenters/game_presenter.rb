@@ -12,7 +12,7 @@ class GamePresenter
   end
 
   def player_at?(position_vertical, position_horizontal)
-    players_positions.dig(position_vertical, position_horizontal)
+    players_positions.dig(position_vertical, position_horizontal).present?
   end
 
   delegate :train_position, to: :game
@@ -35,8 +35,6 @@ class GamePresenter
 
     @players_positions
   end
-
-  private
 
   attr_accessor :game
 end

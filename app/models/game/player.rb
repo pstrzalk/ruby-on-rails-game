@@ -2,7 +2,9 @@
 
 class Game < ApplicationRecord
   class Player < ApplicationRecord
-    broadcasts_to ->(player) { "game_player_#{player.id}" }
+    unless Rails.env.test?
+      broadcasts_to ->(player) { "game_player_#{player.id}" }
+    end
 
     belongs_to :game
 

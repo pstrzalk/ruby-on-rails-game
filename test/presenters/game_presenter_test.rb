@@ -23,39 +23,24 @@ class Game < ApplicationRecord
       assert_equal expected_rows, presenter.rows
     end
 
-    test 'returns empty hash when no players' do
+    test 'returns true if player is at the cell' do
       game = Game.construct
+      game.join(SecureRandom.uuid)
+      player = game.players.last
+      player.position_vertical = 1
+      player.position_horizontal = 3
 
       presenter = GamePresenter.new(game:)
 
-      assert_empty(presenter.players_positions)
+      assert presenter.player_at?(7, 3)
     end
 
-    test 'returns positions' do
+    test 'returns false if player is not at the cell' do
       game = Game.construct
-      game.join('00000000-0000-0000-0000-000000000001')
-      player1 = game.players.last
-      player1.position_horizontal = 2
-      player1.position_vertical = 4
-
-      game.join('00000000-0000-0000-0000-000000000002')
-      player2 = game.players.last
-      player2.position_horizontal = 2
-      player2.position_vertical = 4
-
-      game.join('00000000-0000-0000-0000-000000000003')
-      player3 = game.players.last
-      player3.position_horizontal = 5
-      player3.position_vertical = 6
 
       presenter = GamePresenter.new(game:)
 
-      expected_positions = {
-        4 => { 2 => [player1, player2] },
-        2 => { 5 => [player3] }
-      }
-
-      assert_equal expected_positions, presenter.players_positions
+      assert_not presenter.player_at?(4, 4)
     end
   end
 end
