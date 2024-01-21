@@ -11,7 +11,13 @@ class GamePresenter
     end.reverse
   end
 
+  def player_at?(position_vertical, position_horizontal)
+    players_positions.dig(position_vertical, position_horizontal)
+  end
+
   delegate :train_position, to: :game
+
+  private
 
   def players_positions
     return @players_positions if @players_positions

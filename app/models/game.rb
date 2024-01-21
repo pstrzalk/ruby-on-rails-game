@@ -20,7 +20,7 @@ class Game < ApplicationRecord
   MOVE_BACK = 'b'
   MOVE_DIRECTIONS = Set.new([MOVE_LEFT, MOVE_RIGHT, MOVE_FORWARD, MOVE_BACK]).freeze
 
-  TRAIN_MOVES_EVERY = 2
+  TRAIN_MOVES_EVERY = 3
 
   # hammer?
   def self.construct
@@ -82,7 +82,7 @@ class Game < ApplicationRecord
     if (timestamp % TRAIN_MOVES_EVERY).zero?
       self.train_position += 1
 
-      if train_position == Game::World::WIDTH
+      if train_position == Game::World::WIDTH - 1
         self.finished_at = timestamp
 
         return

@@ -16,7 +16,8 @@
 
 .main_screen {
   background: url("frogger_title_2__cut.jpeg");
-  background-position: 0 50px;
+  height: 100vh;
+  background-position: bottom center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100%;
 }

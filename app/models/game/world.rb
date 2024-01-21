@@ -9,6 +9,10 @@ class Game < ApplicationRecord
     PATTERN_GREEN_MONSTER = 'G'
     PATTERN_VIOLET_MONSTER = 'V'
 
+    PATTERNS_DEADLY = [
+      PATTERN_TNT, PATTERN_BLACK_MONSTER, PATTERN_GREEN_MONSTER, PATTERN_VIOLET_MONSTER
+    ].freeze
+
     WIDTH = 30
 
     Lane = Data.define(:pattern, :moves_every)

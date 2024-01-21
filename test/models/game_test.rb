@@ -141,12 +141,12 @@ class GameTest < ActiveSupport::TestCase
   end
 
   test 'progress and make train finish the game by going off screen' do
-    @game.train_position = 29
+    @game.train_position = 28
     timestamp = Game::TRAIN_MOVES_EVERY
 
     @game.progress(timestamp:)
 
-    assert_equal 30, @game.train_position
+    assert_equal 29, @game.train_position
     assert_equal timestamp, @game.finished_at
   end
 

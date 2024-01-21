@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 namespace :game do
-  desc 'Start a new running game'
+  desc 'Start a new game'
   task start: :environment do
-    StartGameService.call
+    Game::Start.call
   end
 
-  desc 'Progress the running game'
-  task run: :environment do
-    puts 'Starting game'
+  desc 'Progress the running games'
+  task progress: :environment do
+    puts 'Progress all games'
     loop do
-      ProgressGameService.call
+      Game::ProgressAll.call
 
       sleep 0.25
     end
