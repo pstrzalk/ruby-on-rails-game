@@ -203,4 +203,16 @@ class GameTest < ActiveSupport::TestCase
       game_v2.save!
     end
   end
+
+  test 'pushes one player forward if they stack' do
+    game = Game.construct
+    game.players.build(identity: SecureRandom.uuid, position_vertical: 3, position_horizontal: 3, alive: true)
+    game.players.build(identity: SecureRandom.uuid, position_vertical: 3, position_horizontal: 3, alive: true)
+
+    game.progress(timestamp: 1)
+
+    positions_vertical = [game.players.first.position_vertical, game.players.second.position_vertical]
+
+    assert_equal [3, 4], positions_vertical.sort
+  end
 end

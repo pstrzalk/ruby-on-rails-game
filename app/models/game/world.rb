@@ -51,7 +51,9 @@ class Game < ApplicationRecord
     end
 
     def safe_at?(index, position)
-      at(index, position) != PATTERN_TNT
+      pattern = at(index, position)
+
+      PATTERNS_DEADLY.exclude?(pattern)
     end
 
     private

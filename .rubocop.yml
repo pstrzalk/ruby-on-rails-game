@@ -21,6 +21,7 @@ AllCops:
     - 'Guardfile'
 
 Metrics/ClassLength:
+  Max: 150
   Exclude:
     - 'test/**/*'
 

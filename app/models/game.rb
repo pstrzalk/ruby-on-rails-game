@@ -1,18 +1,13 @@
 # frozen_string_literal: true
 
 class Game < ApplicationRecord
-  PlayerNotInGame = Class.new(StandardError)
-  InvalidDirection = Class.new(StandardError)
-
   has_many :players, class_name: 'Game::Player', dependent: :destroy
   accepts_nested_attributes_for :players
 
   belongs_to :world, class_name: 'Game::World', dependent: :destroy
   accepts_nested_attributes_for :world
 
-  unless Rails.env.test?
-    broadcasts_to ->(game) { "game_#{game.id}" }
-  end
+  broadcasts_to ->(game) { "game_#{game.id}" } unless Rails.env.test?
 
   scope :running, -> { where(finished_at: nil) }
 
@@ -20,7 +15,6 @@ class Game < ApplicationRecord
   MOVE_RIGHT = 'r'
   MOVE_FORWARD = 'f'
   MOVE_BACK = 'b'
-  MOVE_DIRECTIONS = Set.new([MOVE_LEFT, MOVE_RIGHT, MOVE_FORWARD, MOVE_BACK]).freeze
 
   TRAIN_MOVES_EVERY = 50
 
@@ -121,6 +115,25 @@ class Game < ApplicationRecord
         player.kill unless world.safe_at?(player.position_vertical, player.position_horizontal)
       end
     end
+
+    players_in_groups = players.select(&:alive?).each_with_object({}) do |player, memo|
+      position = [player.position_horizontal, player.position_vertical]
+      memo[position] ||= []
+      memo[position] << player
+
+      memo
+    end
+
+    stacked_players_actions = players_in_groups.values.filter_map do |players_in_group|
+      next unless players_in_group.size > 1
+
+      player_in_group = players_in_group.sample
+      next if player_in_group.position_vertical == World::RAILWAY_LEVEL
+
+      Action.new(data: { player_identity: player_in_group.identity, direction: MOVE_FORWARD })
+    end
+
+    progress_players(stacked_players_actions) if stacked_players_actions.any?
   end
 
   def moves_from_actions(actions)
