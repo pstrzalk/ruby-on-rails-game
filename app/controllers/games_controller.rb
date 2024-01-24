@@ -13,6 +13,12 @@ class GamesController < ApplicationController
     @player = @game.players.find_by(identity: @player_identity)
   end
 
+  def create
+    Game::Start.call if Game.running.size < 5
+
+    redirect_to games_path
+  end
+
   def join
     @game = Game.find_by(id: params[:id])
 

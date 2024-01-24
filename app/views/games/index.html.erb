@@ -1,20 +1,33 @@
 <div class="max-w-screen-xl mx-auto">
-  <h2 class="text-4xl font-extrabold dark:text-white mb-8">Games</h2>
+  <div class="flex justify-between ">
+    <div class="mb-8">
+      <h2 class="text-4xl font-extrabold dark:text-white mb-8">
+        Games
+      </h2>
+    </div>
+
+    <% if @games.running.size < 5 %>
+      <div class="mb-8">
+        <%= button_to 'Start a game', games_path, class: 'btn-blue' %>
+      </div>
+    <% end %>
+  </div>
+
 
   <div class="">
     <table class="mx-auto">
       <tr class="border-b-2">
-        <td class="py-4 px-12 font-bold">Number</td>
-        <td class="py-4 px-12 font-bold">Status</td>
+        <td class="py-4 px-12 font-bold text-center">Number</td>
+        <td class="py-4 px-12 font-bold text-center">Status</td>
         <td class="py-4 px-12"></td>
       </tr>
 
       <% @games.each_with_index do |game, index| %>
         <tr>
-          <td class="py-4 px-12">
+          <td class="py-4 px-12 text-center">
             <%= game.id %>
           </td>
-          <td class="py-4 px-12">
+          <td class="py-4 px-12 text-center">
             <%= game.running? ? 'Ongoing' : 'Finished' %>
           </td>
           <td class="py-4 px-12">
