@@ -24,10 +24,14 @@ class Game < ApplicationRecord
       Lane.new(pattern:    '..............NVGVNVGV........', moves_every: 3),
       Lane.new(pattern:    'N......................N.NBN..', moves_every: 5),
       Lane.new(pattern:    'VVG................GG.....NN..', moves_every: 5),
-      Lane.new(pattern:    '.......................N......', moves_every: 5),
-      Lane.new(pattern:    '..NNVVNB......BBB.........NNNN', moves_every: 2),
+      Lane.new(pattern:    '.......................N......', moves_every: 3),
       Lane.new(pattern:    '..VV..........................', moves_every: 8),
-      Lane.new(pattern:    'BN............BNB.........NGGN', moves_every: 2),
+      Lane.new(pattern:    'BN............BNB........NGGN.', moves_every: 2),
+      Lane.new(pattern:    '..............NVGBBVNGB.......', moves_every: 3),
+      Lane.new(pattern:    'N.....................N.NBN...', moves_every: 6),
+      Lane.new(pattern:    '..NNVVNB......BBVV........NNNN', moves_every: 6),
+      Lane.new(pattern:    '..VV..........................', moves_every: 7),
+      Lane.new(pattern:    'BN............BNB.........VGBN', moves_every: 5),
       Railway.new(pattern: '=============================', moves_every: 0)
     ].freeze
 
