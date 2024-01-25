@@ -6,7 +6,7 @@
       </h2>
     </div>
 
-    <% if @games.running.size < 5 %>
+    <% if @games.running.size < 3 %>
       <div class="mb-8">
         <%= button_to 'Start a game', games_path, class: 'btn-blue' %>
       </div>

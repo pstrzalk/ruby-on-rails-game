@@ -52,18 +52,16 @@ class GameIntegrationTest < ActionDispatch::IntegrationTest
     assert_equal 1, Game.count
   end
 
-  test 'creates no new game if there are already 5' do
-    Game.construct.save
-    Game.construct.save
+  test 'creates no new game if there are already 3' do
     Game.construct.save
     Game.construct.save
     Game.construct.save
 
-    assert_equal 5, Game.count
+    assert_equal 3, Game.count
 
     post '/games/'
 
-    assert_equal 5, Game.count
+    assert_equal 3, Game.count
   end
 
   test 'joins a game' do

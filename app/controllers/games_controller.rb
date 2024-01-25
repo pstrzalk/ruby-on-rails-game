@@ -14,7 +14,7 @@ class GamesController < ApplicationController
   end
 
   def create
-    Game::Start.call if Game.running.size < 5
+    Game::Start.call if Game.running.size < 3
 
     redirect_to games_path
   end
