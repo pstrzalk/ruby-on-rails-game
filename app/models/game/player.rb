@@ -2,9 +2,7 @@
 
 class Game < ApplicationRecord
   class Player < ApplicationRecord
-    unless Rails.env.test?
-      broadcasts_to ->(player) { "game_player_#{player.id}" }
-    end
+    broadcasts_to ->(player) { "game_player_#{player.id}" } unless Rails.env.test?
 
     belongs_to :game, touch: true
 

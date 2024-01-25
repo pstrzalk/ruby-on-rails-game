@@ -20,15 +20,10 @@ class GamesController < ApplicationController
   end
 
   def join
-    @game = Game.find_by(id: params[:id])
+    @game = Game.running.find_by(id: params[:id])
 
     unless @game
       redirect_to games_path, error: 'No such game'
-      return
-    end
-
-    unless @game.running?
-      redirect_to games_path, notice: 'Game already finished'
       return
     end
 
