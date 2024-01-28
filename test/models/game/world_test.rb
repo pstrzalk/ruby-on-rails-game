@@ -20,7 +20,7 @@ class Game < ApplicationRecord
       world = World.construct
       11.times { world.progress(_1) }
 
-      assert_equal [0, 4, 3, 3, 3, 6, 2, 6, 0], world.rotations
+      assert_equal [0, 4, 3, 3, 4, 2, 6, 4, 2, 2, 2, 3, 0], world.rotations
     end
   end
 end

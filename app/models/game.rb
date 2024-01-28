@@ -16,7 +16,7 @@ class Game < ApplicationRecord
   MOVE_FORWARD = 'f'
   MOVE_BACK = 'b'
 
-  TRAIN_MOVES_EVERY = 50
+  TRAIN_MOVES_EVERY = 30
 
   def self.construct
     instance = new
@@ -106,7 +106,9 @@ class Game < ApplicationRecord
           player.move_left
         elsif move == MOVE_RIGHT && player.position_horizontal < Game::World::WIDTH - 1
           player.move_right
-        elsif move == MOVE_FORWARD && player.position_vertical < Game::World::RAILWAY_LEVEL
+        elsif (move == MOVE_FORWARD && player.position_vertical < Game::World::RAILWAY_LEVEL - 1) ||
+              (move == MOVE_FORWARD && player.position_vertical == Game::World::RAILWAY_LEVEL - 1 &&
+                player.position_horizontal == train_position)
           player.move_forward
         elsif move == MOVE_BACK && player.position_vertical.positive?
           player.move_back

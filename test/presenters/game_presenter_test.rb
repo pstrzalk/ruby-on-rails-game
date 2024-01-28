@@ -10,12 +10,16 @@ class Game < ApplicationRecord
 
       expected_rows = [
         %w[= = = = = = = = = = = = = = = = = = = = = = = = = = = = =],
-        %w[B N . . . . . . . . . . . . B N B . . . . . . . . . N G G N],
-        %w[. . V V . . . . . . . . . . . . . . . . . . . . . . . . . .],
-        %w[. . N N V V N B . . . . . . B B B . . . . . . . . . N N N N],
-        %w[. . . . . . . . . . . . . . . . . . . . . . . N . . . . . .],
+        %w[B N . . . . . . . . . . . . B N B . . . . . . . . . V G B N],
+        %w[. . V V . . . . . . . . . . . . . . . B B V V . . . . . . .],
+        %w[. . N N V V N B . . . . . . B B V V . . . . . . . . N N N N],
+        %w[N . . . . . . B V V G G V . . . . . . . . . N . N B N . . .],
+        %w[. . . V B . . . . . . . . . N V G B B V N G B . . . . . . .],
+        %w[B N . . . . N B N . . . . . B N B . . . . . . . . N G G N .],
+        %w[. . V V . . . . . . . . . . . . . V B B . . . . . . . . . .],
+        %w[. . . . B G V G . B G V B . . . . . . . . . . N . . . . . .],
         %w[V V G . . . . . . . . . . . . . . . . G G . . . . . N N . .],
-        %w[N . . . . . . . . . . . . . . . . . . . . . . N . N B N . .],
+        %w[N . . . . . G G N B B . . . . . . . . . . . . N . N B N . .],
         %w[. . . . . . . . . . . . . . N V G V N V G V . . . . . . . .],
         %w[- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -]
       ]
@@ -32,7 +36,7 @@ class Game < ApplicationRecord
 
       presenter = GamePresenter.new(game:)
 
-      assert presenter.player_at?(7, 3)
+      assert presenter.player_at?(11, 3)
     end
 
     test 'returns false if player is not at the cell' do
