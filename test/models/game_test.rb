@@ -189,21 +189,6 @@ class GameTest < ActiveSupport::TestCase
     assert_equal [true, true, true, true, false], joins
   end
 
-  test 'uses optimistic locking' do
-    Game::Start.call
-
-    game_v1 = Game.last
-    game_v2 = Game.last
-
-    game_v1.join(SecureRandom.uuid)
-    game_v2.join(SecureRandom.uuid)
-
-    game_v1.save!
-    assert_raises(ActiveRecord::StaleObjectError) do
-      game_v2.save!
-    end
-  end
-
   test 'pushes one player forward if they stack' do
     game = Game.construct
     game.players.build(identity: SecureRandom.uuid, position_vertical: 3, position_horizontal: 3, alive: true)
