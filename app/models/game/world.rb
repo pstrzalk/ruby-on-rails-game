@@ -54,19 +54,18 @@ class Game < ApplicationRecord
       end
     end
 
-    def safe_at?(index, position)
-      pattern = at(index, position)
-
+    def safe_at?(position)
+      pattern = at(position)
       PATTERNS_DEADLY.exclude?(pattern)
     end
 
     private
 
-    def at(index, position)
-      pattern = LEVELS[index].pattern
+    def at(position)
+      pattern = LEVELS[position.vertical].pattern
 
-      row = pattern.chars.rotate(rotations[index])
-      row[position]
+      row = pattern.chars.rotate(rotations[position.vertical])
+      row[position.horizontal]
     end
 
     def level_should_rotate?(index, timestamp)

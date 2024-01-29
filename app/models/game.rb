@@ -33,8 +33,10 @@ class Game < ApplicationRecord
 
     players.build(
       identity: player_identity,
-      position_vertical: World::INITIAL_LEVEL,
-      position_horizontal: World::INITIAL_POSITION_RANGE.to_a.sample
+      position: Position.new(
+        rand(World::INITIAL_POSITION_RANGE),
+        World::INITIAL_LEVEL
+      )
     )
 
     true
@@ -70,7 +72,7 @@ class Game < ApplicationRecord
     players.each do |player|
       next unless player.alive?
 
-      player.kill unless world.safe_at?(player.position_vertical, player.position_horizontal)
+      player.kill unless world.safe_at?(player.position)
     end
   end
 
@@ -114,7 +116,7 @@ class Game < ApplicationRecord
           player.move_back
         end
 
-        player.kill unless world.safe_at?(player.position_vertical, player.position_horizontal)
+        player.kill unless world.safe_at?(player.position)
       end
     end
 
