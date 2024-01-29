@@ -7,13 +7,17 @@ class Game < ApplicationRecord
     test 'safe_at? should return true when position is safe' do
       world = World.construct
 
-      assert world.safe_at?(0, 0)
+      position = Position.new(0, 0)
+
+      assert world.safe_at?(position)
     end
 
     test 'safe_at? should return false when position contains TNT' do
       world = World.construct
 
-      assert_not world.safe_at?(2, 0)
+      position = Position.new(0, 2)
+
+      assert_not world.safe_at?(position)
     end
 
     test 'progress should update rotations for lanes with moves_every' do
