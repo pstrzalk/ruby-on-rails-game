@@ -29,7 +29,7 @@ class Game < ApplicationRecord
 
   def join(player_identity)
     return false if players.any? { _1.identity == player_identity }
-    return false if players.size > 3
+    return false if players.count(&:alive?) > 3
 
     players.build(
       identity: player_identity,

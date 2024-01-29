@@ -177,16 +177,18 @@ class GameTest < ActiveSupport::TestCase
     assert_equal player, game.winner
   end
 
-  test 'up to 4 players can join' do
+  test 'up to 4 alive players can join' do
     game = Game.construct
     joins = []
     joins << game.join(SecureRandom.uuid)
     joins << game.join(SecureRandom.uuid)
     joins << game.join(SecureRandom.uuid)
     joins << game.join(SecureRandom.uuid)
+    game.players.last.kill
+    joins << game.join(SecureRandom.uuid)
     joins << game.join(SecureRandom.uuid)
 
-    assert_equal [true, true, true, true, false], joins
+    assert_equal [true, true, true, true, true, false], joins
   end
 
   test 'pushes one player forward if they stack' do
