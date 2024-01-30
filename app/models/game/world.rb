@@ -29,7 +29,7 @@ class Game < ApplicationRecord
       Lane.new(pattern:    'BN....NBN.....BNB........NGGN.', moves_every: 2),
       Lane.new(pattern:    '...VB.........NVGBBVNGB.......', moves_every: 3),
       Lane.new(pattern:    'N......BVVGGV.........N.NBN...', moves_every: 6),
-      Lane.new(pattern:    '..NNVVNB......BBVV........NNNN', moves_every: 6),
+      Lane.new(pattern:    '..NNVVNB......BBVV........NNNN', moves_every: 2),
       Lane.new(pattern:    '..VV...............BBVV.......', moves_every: 7),
       Lane.new(pattern:    'BN............BNB.........VGBN', moves_every: 5),
       Railway.new(pattern: '=============================', moves_every: 0)

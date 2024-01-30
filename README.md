@@ -1,24 +1,49 @@
-# README
+# Ruby on Rails - the Game
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This application is the subject of workshops organized for Ruby Warsaw Community Conference 2024. It tells an intense story of a love interrupted by evil magic. Will the Prince David rescue Princess Ruby?
 
-Things you may want to cover:
+Disclaimer: This code was created for fun and for fun only. It has obvious design flaws and is not perfect by any standards. But it was awesome to write and to share with all Ruby fans.
 
-* Ruby version
+## Installation
+```sh
+# Clone the repository
+$ git clone https://github.com/pstrzalk/ruby-on-rails-game
+$ cd ruby-on-rails-game
 
-* System dependencies
+# Install gems
+$ bundle
 
-* Configuration
+# Create database and run migrations
+$ bin/setup
 
-* Database creation
+# Run game server
+$ bin/dev
 
-* Database initialization
+# [In another terminal] Run game loop
+$ rails game:run
 
-* How to run the test suite
+# Open in a browser
+$ open http://localhost:3000
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+## Testing
 
-* Deployment instructions
+Thanks to Steven Baker's teaching, this application uses Minitest library for testing purposes. Run the following instruction and always keep the overall test coverage at 100% (and beyond).
 
-* ...
+```sh
+$ rails test
+```
+
+## Keep the code readable
+
+The application uses Rubocop as code linter. Please run
+
+```sh
+$ rubocop
+```
+
+and keep the output free of offenses.
+
+## Have fun
+
+Is obligatory!

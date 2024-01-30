@@ -7,7 +7,7 @@ namespace :game do
   end
 
   desc 'Progress the running games'
-  task progress: :environment do
+  task run: :environment do
     puts 'Progress all games'
 
     loop do
@@ -18,7 +18,7 @@ namespace :game do
   end
 
   desc 'Progress the running games using RailsPermanentJob'
-  task progress_with_permanent_job: :environment do
+  task run_with_permanent_job: :environment do
     RailsPermanentJob.jobs = [Game::ProgressAll]
     RailsPermanentJob.after_job = ->(**_options) { sleep 0.1 }
 
