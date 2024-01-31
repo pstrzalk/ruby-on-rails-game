@@ -17,12 +17,12 @@ namespace :game do
     end
   end
 
-  desc 'Progress the running games using RailsPermanentJob'
-  task run_with_permanent_job: :environment do
-    RailsPermanentJob.jobs = [Game::ProgressAll]
-    RailsPermanentJob.after_job = ->(**_options) { sleep 0.1 }
+  # desc 'Progress the running games using RailsPermanentJob'
+  # task run_with_permanent_job: :environment do
+  #   RailsPermanentJob.jobs = [Game::ProgressAll]
+  #   RailsPermanentJob.after_job = ->(**_options) { sleep 0.1 }
 
-    log_level = ENV['LOG_LEVEL'].presence || 'info'
-    RailsPermanentJob.run(workers: 1, log_level:)
-  end
+  #   log_level = ENV['LOG_LEVEL'].presence || 'info'
+  #   RailsPermanentJob.run(workers: 1, log_level:)
+  # end
 end

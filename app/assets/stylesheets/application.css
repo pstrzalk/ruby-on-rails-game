@@ -21,3 +21,8 @@
   background-repeat: no-repeat;
   background-size: 100%;
 }
+
+pre {
+  font-size: 1.75em;
+  letter-spacing: 0.25em;
+}
