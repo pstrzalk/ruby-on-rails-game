@@ -2,21 +2,15 @@
 
 <% if game.running? %>
   <div id="<%= dom_id(game) %>" class="game grid gap-0" style="grid-template-columns: repeat(<%= Game::World::WIDTH%>,minmax(0,1fr));">
-  <pre><%
-    presenter.rows.each_with_index do |row, row_index|
-      row.each_with_index do |cell, cell_index|
-        %><%=
-        if presenter.player_at?(row_index, cell_index)
-          'F'
-        elsif cell == Game::World::PATTERN_RAILWAY && game.train_position == cell_index
-          'WT'
-        else
-          cell
-        end
-        %><%
-      end %>
-  <% end %>
-  </pre>
+    <% presenter.rows.each_with_index do |row, row_index| %>
+      <% row.each_with_index do |cell, cell_index| %>
+        <%=
+          game_cell(cell,
+                    presenter.player_at?(row_index, cell_index),
+                    cell == Game::World::PATTERN_RAILWAY && presenter.train_position == cell_index)
+        %>
+      <% end %>
+    <% end %>
   </div>
 <% else %>
   <div id="<%= dom_id(game) %>" class="w-2/3 mx-auto" data-controller="gameover">
