@@ -28,7 +28,7 @@ $ open http://localhost:3000
 
 ## Testing
 
-Thanks to Steven Baker's teaching, this application uses Minitest library for testing purposes. Run the following instruction and always keep the overall test coverage at 100% (and beyond).
+This application uses Minitest library for testing purposes. Run the following instruction and always keep the overall test coverage at 100% (and beyond).
 
 ```sh
 $ rails test

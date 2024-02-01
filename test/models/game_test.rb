@@ -202,4 +202,19 @@ class GameTest < ActiveSupport::TestCase
 
     assert_equal [3, 4], positions_vertical.sort
   end
+
+  # test 'uses optimistic locking' do
+  #   Game::Start.call
+
+  #   game_v1 = Game.last
+  #   game_v2 = Game.last
+
+  #   game_v1.join(SecureRandom.uuid)
+  #   game_v2.join(SecureRandom.uuid)
+
+  #   game_v1.save!
+  #   assert_raises(ActiveRecord::StaleObjectError) do
+  #     game_v2.save!
+  #   end
+  # end
 end
