@@ -11,7 +11,9 @@ class Game < ApplicationRecord
     belongs_to :game, touch: true
 
     def kill
-      self.alive = false
+      # self.alive = false
+      self.position_vertical = 0
+      self.position_horizontal = rand(2..28)
     end
 
     def move_left
