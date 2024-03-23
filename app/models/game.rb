@@ -27,14 +27,14 @@ class Game < ApplicationRecord
     instance
   end
 
-  def join(player_identity)
+  def join(player_identity, randomizer: method(:rand))
     return false if players.any? { _1.identity == player_identity }
     return false if players.count(&:alive?) > 3
 
     players.build(
       identity: player_identity,
-      position_vertical: World::INITIAL_LEVEL,
-      position_horizontal: rand(World::INITIAL_POSITION_RANGE)
+      position_vertical: World::INITIAL_LEVEL, # it is still 0, but I don't want database initializing the value
+      position_horizontal: randomizer.call(World::INITIAL_POSITION_RANGE)
     )
 
     true

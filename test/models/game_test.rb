@@ -3,6 +3,20 @@
 require 'test_helper'
 
 class GameTest < ActiveSupport::TestCase
+  test 'joins a new player' do
+    game = Game.construct
+    player_identity = SecureRandom.uuid
+
+    result = game.join(player_identity, randomizer: proc { 7 })
+
+    assert result
+
+    player = game.players.first
+
+    assert_equal 0, player.position_vertical
+    assert_equal 7, player.position_horizontal
+  end
+
   test 'should not allow duplicate player_identity in join' do
     game = Game.construct
     existing_player_identity = SecureRandom.uuid
