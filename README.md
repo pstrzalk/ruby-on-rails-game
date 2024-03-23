@@ -5,6 +5,9 @@ This application is the subject of workshops organized for Ruby Warsaw Community
 Disclaimer: This code was created for fun and for fun only. It has obvious design flaws and is not perfect by any standards. But it was awesome to write and to share with all Ruby fans.
 
 ## Installation
+
+To run the game, you need to have PostgreSQL and Redis.
+
 ```sh
 # Clone the repository
 $ git clone https://github.com/pstrzalk/ruby-on-rails-game
@@ -25,6 +28,8 @@ $ rails game:run
 # Open in a browser
 $ open http://localhost:3000
 ```
+
+Alternatively, you may use Docker Compose - just use the provided configuration.
 
 ## Testing
 
