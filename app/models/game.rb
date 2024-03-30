@@ -15,6 +15,7 @@ class Game < ApplicationRecord
   MOVE_RIGHT = 'r'
   MOVE_FORWARD = 'f'
   MOVE_BACK = 'b'
+  MOVE_JUMP = 'j'
 
   TRAIN_MOVES_EVERY = 30
 
@@ -112,6 +113,15 @@ class Game < ApplicationRecord
           player.move_forward
         elsif move == MOVE_BACK && player.position_vertical.positive?
           player.move_back
+        elsif move == MOVE_JUMP && player.position_vertical < Game::World::RAILWAY_LEVEL - 2
+          player.jump
+
+          # normalize player position to the world's boundaries
+          if player.position_horizontal.negative?
+            player.move_to(0, player.position_vertical)
+          elsif player.position_horizontal >= Game::World::WIDTH
+            player.move_to(Game::World::WIDTH - 1, player.position_vertical)
+          end
         end
 
         player.kill unless world.safe_at?(player.position_vertical, player.position_horizontal)

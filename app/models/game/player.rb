@@ -33,5 +33,23 @@ class Game < ApplicationRecord
       self.position_vertical -= 1
       # self.position = Position.new(position.horizontal, position.vertical - 1)
     end
+
+    def jump
+      self.position_vertical += 2
+
+      move_sideways = rand < 0.25
+      return unless move_sideways
+
+      if rand < 0.5
+        move_left
+      else
+        move_right
+      end
+    end
+
+    def move_to(position_horizontal, position_vertical)
+      self.position_horizontal = position_horizontal
+      self.position_vertical = position_vertical
+    end
   end
 end

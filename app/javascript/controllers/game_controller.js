@@ -19,7 +19,8 @@ export default class extends Controller {
       '37': 'l',
       '38': 'f',
       '39': 'r',
-      '40': 'b'
+      '40': 'b',
+      '74': 'j'
     };
     const direction = directionsByKeyCodes[e.keyCode];
 
