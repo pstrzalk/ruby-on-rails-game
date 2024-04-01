@@ -21,15 +21,15 @@ class Game < ApplicationRecord
 
     LEVELS = [
       Spawn.new(pattern:   '------------------------------', moves_every: 0),
-      Lane.new(pattern:    '..............NVGVNVGV........', moves_every: 3),
-      Lane.new(pattern:    'N......................N.NBN..', moves_every: 5),
-      Lane.new(pattern:    '...................GG.....NN..', moves_every: 5),
+      Lane.new(pattern:    '.....................V........', moves_every: 3),
+      Lane.new(pattern:    'N..........................N..', moves_every: 5),
+      Lane.new(pattern:    '..........................NN..', moves_every: 5),
       Lane.new(pattern:    '.......................N......', moves_every: 3),
-      Lane.new(pattern:    '..VV.............VBB..........', moves_every: 8),
-      Lane.new(pattern:    'BN............BNB........NGGN.', moves_every: 2),
+      Lane.new(pattern:    'BNVVBBNNGVBVBNBVNGBBVG.VBBVNGN', moves_every: 8),
+      Lane.new(pattern:    'BNBNGVBNGVB.GVVVNNBBGGVNBGNVNG', moves_every: 2),
       Lane.new(pattern:    '...VB.........................', moves_every: 3),
       Lane.new(pattern:    'N.............................', moves_every: 6),
-      Lane.new(pattern:    '..............BBVV............', moves_every: 2),
+      Lane.new(pattern:    '................VV............', moves_every: 2),
       Lane.new(pattern:    '..VV..........................', moves_every: 7),
       Lane.new(pattern:    '..................V...........', moves_every: 5),
       Railway.new(pattern: '=============================', moves_every: 0)
