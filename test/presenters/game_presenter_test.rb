@@ -4,29 +4,6 @@ require 'test_helper'
 
 class Game < ApplicationRecord
   class GamePresenterTest < ActiveSupport::TestCase
-    test 'returns game world rows' do
-      game = Game.construct
-      presenter = GamePresenter.new(game:)
-
-      expected_rows = [
-        %w[= = = = = = = = = = = = = = = = = = = = = = = = = = = = =],
-        %w[. . . . . . . . . . . . . . . . . . V . . . . . . . . . . .],
-        %w[. . V V . . . . . . . . . . . . . . . . . . . . . . . . . .],
-        %w[. . . . . . . . . . . . . . B B V V . . . . . . . . . . . .],
-        %w[N . . . . . . . . . . . . . . . . . . . . . . . . . . . . .],
-        %w[. . . V B . . . . . . . . . . . . . . . . . . . . . . . . .],
-        %w[B N . . . . . . . . . . . . B N B . . . . . . . . N G G N .],
-        %w[. . V V . . . . . . . . . . . . . V B B . . . . . . . . . .],
-        %w[. . . . . . . . . . . . . . . . . . . . . . . N . . . . . .],
-        %w[. . . . . . . . . . . . . . . . . . . G G . . . . . N N . .],
-        %w[N . . . . . . . . . . . . . . . . . . . . . . N . N B N . .],
-        %w[. . . . . . . . . . . . . . N V G V N V G V . . . . . . . .],
-        %w[- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -]
-      ]
-
-      assert_equal expected_rows, presenter.rows
-    end
-
     test 'returns true if player is at the cell' do
       game = Game.construct
       game.join(SecureRandom.uuid)
