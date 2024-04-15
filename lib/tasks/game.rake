@@ -13,7 +13,7 @@ namespace :game do
     loop do
       Game::ProgressAll.call
 
-      sleep 0.1
+      sleep 0.2
     end
   end
 
