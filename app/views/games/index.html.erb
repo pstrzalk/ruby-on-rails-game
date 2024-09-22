@@ -1,44 +1,35 @@
-<div class="max-w-screen-xl mx-auto">
-  <div class="flex justify-between ">
-    <div class="mb-8">
-      <h2 class="text-4xl font-extrabold dark:text-white mb-8">
-        Games
-      </h2>
-    </div>
-
+<div class="max-w-screen-2xl pb-16 mx-auto bg-opacity-70 bg-black text-center">
+  <div class="mt-8 p-8 mx-auto">
     <% if @games.running.size < 3 %>
-      <div class="mb-8">
-        <%= button_to 'Start a game', games_path, class: 'btn-blue' %>
-      </div>
+      <%= button_to 'Start a game', games_path, class: 'btn-blue' %>
+    <% else %>
+      &nbsp;
     <% end %>
   </div>
 
+  <table class="mx-auto">
+    <tr class="border-b-2">
+      <td class="py-4 px-12 font-bold text-center">Number</td>
+      <td class="py-4 px-12 font-bold text-center">Status</td>
+      <td class="py-4 px-12"></td>
+    </tr>
 
-  <div class="">
-    <table class="mx-auto">
-      <tr class="border-b-2">
-        <td class="py-4 px-12 font-bold text-center">Number</td>
-        <td class="py-4 px-12 font-bold text-center">Status</td>
-        <td class="py-4 px-12"></td>
-      </tr>
-
-      <% @games.each_with_index do |game, index| %>
-        <tr>
-          <td class="py-4 px-12 text-center">
-            <%= game.id %>
-          </td>
-          <td class="py-4 px-12 text-center">
-            <%= game.running? ? 'Ongoing' : 'Finished' %>
-          </td>
-          <td class="py-4 px-12">
-            <% if game.running? %>
-              <%= link_to 'Play', game, class: 'btn-blue py-3 px-12' %>
-            <% else %>
-              <%= link_to 'Check result', game, class: 'btn-gray py-3 px-4' %>
-            <% end %>
-          </td>
-        <tr>
-      <% end %>
-    </table>
-  </div>
+    <% @games.each_with_index do |game, index| %>
+      <tr>
+        <td class="py-4 px-12 text-center">
+          <%= game.id %>
+        </td>
+        <td class="py-4 px-12 text-center">
+          <%= game.running? ? 'Ongoing' : 'Finished' %>
+        </td>
+        <td class="py-4 px-12">
+          <% if game.running? %>
+            <%= link_to 'Play', game, class: 'btn-blue py-3 px-12' %>
+          <% else %>
+            <%= link_to 'Check result', game, class: 'btn-gray py-3 px-4' %>
+          <% end %>
+        </td>
+      <tr>
+    <% end %>
+  </table>
 </div>

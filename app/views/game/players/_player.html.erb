@@ -1,7 +1,5 @@
 
 <div id="<%= dom_id(player) %>"
      data-player-identity="<%= player.identity %>"
-     class="<% unless player.game.running? %>hidden<% end %>  bg-gray-300 text-black shadow overflow-hidden sm:rounded-lg max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-3">
-    <div class="px-4"><%= player.alive? ? 'Alive' : 'Dead' %></div>
-    <div class="px-4">Position: <%= player.position_horizontal %> x <%= player.position_vertical %></div>
+     class="hidden">
   </div>

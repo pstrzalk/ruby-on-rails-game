@@ -22,6 +22,14 @@
       @apply bg-blue-700;
     }
   }
+
+  .btn-red {
+    @apply btn bg-red-600 text-white;
+
+    &:hover {
+      @apply bg-red-700;
+    }
+  }
 }
 
 h1 {

@@ -26,3 +26,11 @@ pre {
   font-size: 1.75em;
   letter-spacing: 0.5em;
 }
+
+body {
+  background: url("frogger_background.jpg");
+  height: 100vh;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}

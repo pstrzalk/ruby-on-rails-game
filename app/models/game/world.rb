@@ -32,6 +32,19 @@ class Game < ApplicationRecord
       Lane.new(pattern:    '..................BNGV........', moves_every: 2),
       Lane.new(pattern:    '..VV..........................', moves_every: 7),
       Lane.new(pattern:    'BN........................VGBN', moves_every: 5),
+      # Lane.new(pattern:    '..V.V....VV...B..B..BBB..BBB..', moves_every: 3),
+      # Lane.new(pattern:    '.V.V.V..V..V..B.B...B....B..B.', moves_every: 6),
+      # Lane.new(pattern:    '.V.V.V..V..V..BBB...B....B..B.', moves_every: 12),
+      # Lane.new(pattern:    '.V...V..V..V..B..B..B....B..B.', moves_every: 4),
+      # Lane.new(pattern:    '.V...V..V..V..B..B..B....B..B.', moves_every: 2),
+      # Lane.new(pattern:    '.V...V...VV....BB...B....BBB..', moves_every: 7),
+      # Lane.new(pattern:    '.............................G', moves_every: 5),
+      # Lane.new(pattern:    'B..B..B..B..BBB..BBB..BBB.....', moves_every: 3),
+      # Lane.new(pattern:    'B.B...B..B...B...B......B.....', moves_every: 5),
+      # Lane.new(pattern:    'BBB...BBBB...B...B.....BB.....', moves_every: 5),
+      # Lane.new(pattern:    'B..B..B..B...B...B....BB......', moves_every: 3),
+      # Lane.new(pattern:    'B..B..B..B...B...B....B.......', moves_every: 8),
+      # Lane.new(pattern:    '.BB....BB...BBB..B....BBB.....', moves_every: 2),
       Railway.new(pattern: '=============================', moves_every: 0)
     ].freeze
 

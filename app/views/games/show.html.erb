@@ -1,17 +1,19 @@
-<div class="max-w-screen-xl mx-auto">
-  <div class="mb-8">
+<div class="max-w-screen-2xl mx-auto">
+
+  <div data-controller="game" data-game-id="<%= @game.id %>" class="game-wrapper rounded-xl overflow-hidden mt-12 mb-8 container max-w-screen-2xl mx-auto">
+    <%= turbo_stream_from dom_id(@game) %>
+
+    <%= render @game %>
+  </div>
+
+  <div class="mb-8 text-center">
     <% if @player %>
       <%= turbo_stream_from dom_id(@player) %>
 
       <%= render @player %>
     <% elsif @game.running?%>
-      <%= link_to 'Join', join_game_path(@game), class: "btn-blue" %>
+      <%= link_to 'Join', join_game_path(@game), class: "btn-red w-1/2 text-center" %>
     <% end %>
   </div>
 
-  <div data-controller="game" data-game-id="<%= @game.id %>" class="game-wrapper rounded-xl overflow-hidden mb-8 container max-w-screen-xl mx-auto">
-    <%= turbo_stream_from dom_id(@game) %>
-
-    <%= render @game %>
-  </div>
 </div>

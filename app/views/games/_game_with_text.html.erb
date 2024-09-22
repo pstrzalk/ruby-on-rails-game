@@ -21,7 +21,7 @@
 <% else %>
   <div id="<%= dom_id(game) %>" class="w-2/3 mx-auto" data-controller="gameover">
     <% if game.winner %>
-      <div class="text-center mb-6">
+      <div class="text-center mb-6 bg-black">
         <h2 id="winner_indicator" data-winner-identity="<%= game.winner.identity %>"></h2>
         <h3>Take a look at the rest of the story</h3>
       </div>
@@ -33,7 +33,7 @@
         <%= image_tag("frogger_winner_4000.jpeg", alt: "Game outro slide 4 - happily ever after", class: '') %>
       </div>
     <% else %>
-      <div class="text-center mb-6">
+      <div class="text-center mb-6 bg-black">
         <h2>Better luck next time Prince...</h2>
         <h3>The Princess was kidnapped and the Prince was eating flies for the rest of his days</h3>
       </div>

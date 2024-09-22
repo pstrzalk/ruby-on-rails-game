@@ -1,0 +1,86 @@
+<turbo-frame id="story-image">
+  <div class="mb-12 text-center w-full">
+    <% if @part == '1' %>
+      <div class="mb-12 text-center w-full">
+        <a href="/story/2">
+          <%= image_tag("rails_world_1000.jpeg", alt: "Story slide 1", class: 'w-2/3 mx-auto') %>
+        </a>
+      </div>
+      <p class="mb-12">
+        <a href="/story/2">
+          Once upon a time, in a land far away, lived a Prince called David and a Princess called Ruby
+        </a>
+      </p>
+
+    <% elsif @part == '2' %>
+      <div class="mb-12 text-center w-full">
+        <a href="/story/3">
+          <%= image_tag("rails_world_2000.jpeg", alt: "Story slide 2", class: 'w-2/3 mx-auto') %>
+        </a>
+      </div>
+      <p class="mb-12">
+        <a href="/story/3">
+          The fairy tale stopped when an evil wizard cast a spell on the Prince
+        </a>
+      </p>
+
+    <% elsif @part == '3' %>
+      <div class="mb-12 text-center w-full">
+        <a href="/story/4">
+          <%= image_tag("rails_world_3000.jpeg", alt: "Story slide 2", class: 'w-2/3 mx-auto') %>
+        </a>
+      </div>
+      <p class="mb-12">
+        <a href="/story/4">
+          The Prince was changed into a frog
+        </a>
+      </p>
+
+    <% elsif @part == '4' %>
+      <div class="mb-12 text-center w-full">
+        <a href="/story/5">
+          <%= image_tag("rails_world_4000.jpeg", alt: "Story slide 4", class: 'w-2/3 mx-auto') %>
+        </a>
+      </div>
+      <p class="mb-12">
+        <a href="/story/5">
+          But the brave Prince, even in this tiny body, never stopped fighting. He started to run away!
+        </a>
+      </p>
+
+    <% elsif @part == '5' %>
+      <div class="mb-12 text-center w-full">
+        <a href="/story/6">
+          <%= image_tag("rails_world_5000.jpeg", alt: "Story slide 5", class: 'w-2/3 mx-auto') %>
+        </a>
+      </div>
+      <p class="mb-12">
+        <a href="/story/6">
+          He has found refuge deep within the forest!
+        </a>
+      </p>
+
+    <% elsif @part == '6' %>
+      <div class="mb-12 text-center w-full">
+        <a href="/story/7">
+          <%= image_tag("rails_world_6000.jpeg", alt: "Story slide 6", class: 'w-2/3 mx-auto') %>
+        </a>
+      </div>
+      <p class="mb-12">
+        <a href="/story/7">
+          The evil wizard was furious. He decided to kidnap Ruby.
+        </a>
+      </p>
+
+    <% elsif @part == '7' %>
+      <div class="mb-12 text-center w-full">
+        <%= image_tag("rails_world_7000.jpeg", alt: "Story slide 7", class: 'w-2/3 mx-auto') %>
+      </div>
+      <p class="mb-12">
+        He put her on a train that swiftly carried her to his secret hideout.
+      </p>
+
+      <a href="/games/" target="_top" class="btn-red mb-24 w-full text-center">Hurry! Save the Princess from the Evil Wizard!</a>
+    <% end %>
+  </div>
+</turbo-frame>

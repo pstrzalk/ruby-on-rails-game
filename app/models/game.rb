@@ -86,7 +86,7 @@ class Game < ApplicationRecord
     end
 
     winning_player = players.find do |player|
-      player.position_vertical == World::RAILWAY_LEVEL && player.position_horizontal == train_position
+      player.position_vertical == Game::World::RAILWAY_LEVEL && player.position_horizontal == train_position
     end
 
     return unless winning_player

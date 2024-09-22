@@ -11,7 +11,9 @@ module GameHelper
     case cell
     when Game::World::PATTERN_TNT then image_tag('water_with_tnt.png')
     when Game::World::PATTERN_VIOLET_MONSTER then image_tag('water-with-violet-monster.png')
-    when Game::World::PATTERN_BLACK_MONSTER then image_tag('water-with-black-monster.png')
+    when Game::World::PATTERN_BLACK_MONSTER
+      image = image_tag('water-with-black-monster-rails-world.png')
+      "<div style='background-color: #357cea;'>#{image}</div>".html_safe
     when Game::World::PATTERN_GREEN_MONSTER then image_tag('water-with-green-monster.png')
     end
   end

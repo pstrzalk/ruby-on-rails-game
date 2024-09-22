@@ -12,10 +12,10 @@
     <link rel="icon" type="image/png" href="/favicon.png" />
   </head>
 
-  <body class="bg-black text-white <% if @home %>main_screen<% end %>">
+  <body class="bg-black text-white <% if @home %>main_screen<% end %> <%= 'game-wrapper' if @game %>">
     <%= render partial: "/layouts/top_nav" %>
 
-    <main class="container mx-auto">
+    <main class="container mx-auto h-full">
       <%= yield %>
     </main>
   </body>

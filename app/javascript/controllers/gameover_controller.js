@@ -27,6 +27,19 @@ export default class extends Controller {
         winnerIndicatorElement.innerHTML = 'You have rescued the Princess!';
       } else {
         winnerIndicatorElement.innerHTML = 'You have failed, but some other Prince has rescued the Princess.';
+
+        let failedImages = document.getElementsByClassName('js-failed-mission');
+        Array.prototype.forEach.call(failedImages, function(element) {
+          element.classList.remove('hidden');
+        });
+
+        let successfulImages = document.getElementsByClassName('js-successful-mission');
+        Array.prototype.forEach.call(successfulImages, function(element) {
+          element.classList.add('hidden');
+        });
+
+        const winnerDescriptionElement = document.getElementById('winner_description');
+        winnerDescriptionElement.innerHTML = 'You will be eating flies for the rest of your days...';
       }
     }
   }
