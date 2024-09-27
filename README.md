@@ -2,7 +2,13 @@
 
 This application is the subject of workshops organized for Ruby Warsaw Community Conference 2024. It tells an intense story of a love interrupted by evil magic. Will the Prince David rescue Princess Ruby?
 
-Disclaimer: This code was created for fun and for fun only. It has obvious design flaws and is not perfect by any standards. But it was awesome to write and to share with all Ruby fans.
+### Rails World 2024
+The game and its concepts were presented at Rails World 2024 in Toronto. You can find the slides in [this presentation](public/Rails-World-presentation.pdf)
+
+A special version of the game, with updated graphics and logic was prepared for it, you can find it in `rails-world` branch.
+
+### Disclaimer
+This code was created for fun and for fun only. It has obvious design flaws and is not perfect by any standards. But it was awesome to write and to share with all Ruby fans.
 
 ## Installation
 
